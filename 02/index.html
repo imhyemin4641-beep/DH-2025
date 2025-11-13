@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>부산시민공원 부지: 역사적 변천과 기억의 충돌</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Noto+Sans+KR:wght@100..900&display=swap');
+        body {
+            font-family: 'Noto Sans KR', 'Inter', sans-serif;
+            background-color: #f7f9fb;
+        }
+        .timeline-item.active {
+            border-left: 4px solid #10b981; /* Emerald 500 */
+            background-color: #ecfdf5; /* Emerald 50 */
+        }
+        .timeline-item:hover {
+            cursor: pointer;
+            background-color: #f0fdf4;
+        }
+        .reveal-truth-button {
+            transition: all 0.3s ease;
+        }
+        .radial-pattern {
+            width: 150px;
+            height: 150px;
+            position: relative;
+            background: #f87171; /* Red */
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .radial-pattern .center-shape {
+            width: 50px;
+            height: 50px;
+            background: white;
+            position: relative;
+            transform: rotate(45deg); /* Octagon effect approximation */
+            border-radius: 5px;
+        }
+        .radial-pattern .center-shape::before {
+             content: '';
+             position: absolute;
+             top: 0; left: 0; right: 0; bottom: 0;
+             background: white;
+             transform: rotate(-90deg);
+        }
+        .radial-pattern .line {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 75px; /* Half of radial-pattern width */
+            height: 1px;
+            background: white;
+            transform-origin: 0% 50%;
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8">
+    <div class="max-w-6xl mx-auto">
+        <!-- Header -->
+        <header class="mb-8">
+            <h1 class="text-4xl font-extrabold text-gray-900 leading-tight">
+                부산시민공원: <span class="text-emerald-600">역사적 변천과 기억의 충돌</span>
+            </h1>
+            <p class="mt-2 text-xl text-gray-500">구 캠프 하야리아 부지에 쌓인 4개 시대의 '집단기억' 층위 분석</p>
+            <!-- New Button Section: Timeline Button -->
+            <div class="mt-4">
+                <button onclick="scrollToTimeline()" class="px-5 py-2 text-sm font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 shadow-lg transition duration-150 transform hover:scale-[1.02]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block mr-2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    타임라인 바로가기
+                </button>
+            </div>
+            <!-- End New Button Section -->
+        </header>
+
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Timeline Navigation (Left/Top) -->
+            <nav id="timeline-section" class="lg:w-1/3 bg-white p-6 rounded-xl shadow-lg h-full lg:sticky top-8">
+                <h2 class="text-2xl font-bold mb-4 text-gray-800 border-b pb-2">기억의 연대기</h2>
+                <!-- Navigation items will be inserted here by JS -->
+            </nav>
+
+            <!-- Content Display (Right/Bottom) -->
+            <main class="lg:w-2/3">
+                <section id="content-display" class="bg-white p-8 rounded-xl shadow-2xl transition-all duration-500">
+                    <!-- Content will be inserted here by JS -->
+                </section>
+                
+                <!-- Navigation Buttons for Mobile/Flow -->
+                <div class="mt-6 flex justify-between gap-4">
+                    <button id="prev-btn" onclick="navigate(-1)" class="flex items-center justify-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="m15 18-6-6 6-6"/></svg>
+                        이전 단계
+                    </button>
+                    <button id="next-btn" onclick="navigate(1)" class="flex items-center justify-center px-6 py-3 border border-transparent shadow-sm text-base font-medium rounded-lg text-white bg-emerald-600 hover:bg-emerald-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                        다음 단계
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-2"><path d="m9 18 6-6-6-6"/></svg>
+                    </button>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        const historyData = [
+            {
+                id: 'intro',
+                title: "1. 서론: 기억의 장소, 부산시민공원",
+                subtitle: "복합적인 역사와 기억의 충돌",
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>`,
+                content: `
+                    <p class="text-gray-700 mb-6">부산시민공원은 단순한 휴식처를 넘어, 일제강점기 경마장부터 미군 주둔지, 그리고 시민의 품으로 돌아오기까지 각기 다른 시대의 '집단기억'이 켜켜이 쌓인 '기억의 장소(lieux de mémoire)'입니다.</p>
+                    <p class="text-gray-700 mb-6 font-semibold">본 분석은 구 장교클럽 천장 문양을 둘러싼 논란을 핵심 렌즈로 활용하여 역사적 진실과 상처받은 집단기억의 충돌 과정을 연대기적으로 재조명합니다.</p>
+                    <ul class="list-disc pl-5 text-gray-600 space-y-2">
+                        <li><strong>일제강점기:</strong> 일본인 여가 공간 &rarr; 군용지 (강제동원의 기억)</li>
+                        <li><strong>해방 후:</strong> 캠프 하야리아 (도시 속 '작은 미국', 공존의 기억)</li>
+                        <li><strong>현대:</strong> 시민의 열망으로 되찾은 공원 (문화적 기억)</li>
+                    </ul>
+                `
+            },
+            {
+                id: 'colonial',
+                title: "2. 일제강점기 (1910-1945)",
+                subtitle: "경마장에서 군용지로의 전환: '타자로서의 기억'",
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="m10 13-3 3 3 3"/><path d="m14 13 3 3-3 3"/></svg>`,
+                content: `
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">부산서면경마장 시대 (1930년대)</h3>
+                    <p class="text-gray-700 mb-4">일본인 자본가들이 주축이 되어 설립되었으며, 주 이용자층 역시 일본인이었습니다. 인근 한국인 주민들에게는 소음, 악취, 사행심 조장 등 부정적인 존재로 인식된, <strong>분리되고 소외된 공간</strong>이었습니다.</p>
+                    
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">전시체제기 (1937-1945)</h3>
+                    <p class="text-gray-700 mb-4">여가 기능은 축소되고, 대륙 침략 병참기지의 배후 군용지로서 역할이 강화되었습니다. 일본군 기마부대가 주둔했으며, <strong>임시군속훈련소('노구치부대')</strong>가 설치되어 3,223명의 한국인 청년들이 동남아 전선으로 강제동원되었습니다.</p>
+                    <p class="text-sm text-red-600 font-medium">※ 전쟁 후 129명은 B급 전범으로 기소되어 사형 또는 옥고를 치르는 비극을 맞았으며, 해방된 조국과 일본 양쪽 모두에게 외면받은 '타자'의 상처로 남았습니다.</p>
+                `
+            },
+            {
+                id: 'us_military',
+                title: "3. 해방과 미군 주둔 (1945-2006)",
+                subtitle: "캠프 하야리아의 탄생과 공존: '선택받은 위치'",
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Z"/><path d="M12 2v20"/><path d="M2 12h20"/><path d="M18.8 8.8 12 12l-6.8-3.2"/><path d="m5.2 15.2 6.8-3.2 6.8 3.2"/></svg>`,
+                content: `
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">캠프 하야리아 (Camp Hialeah)</h3>
+                    <p class="text-gray-700 mb-4">1945년 해방 후 미군 주둔지가 되었고, 한국전쟁을 거치며 공식 설치되어 약 60년간 도심 속 '작은 미국'으로 존재했습니다.</p>
+                    
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">다양한 한국인의 기억</h3>
+                    <ul class="list-disc pl-5 text-gray-700 space-y-2">
+                        <li><strong>본동 마을 주민:</strong> 미군을 대상으로 상권을 형성하며 생계를 공유하는 긍정적 공간으로 인식했습니다. (여성들을 '양색시'라는 순화된 용어로 부름)</li>
+                        <li><strong>한국인 직원:</strong> 국내 기업보다 나은 보수와 근무 환경을 제공하는 <strong>'선택받은 위치'</strong>였으나, 보이지 않는 차별적 대우를 감수해야 하는 복합적 경험을 가졌습니다.</li>
+                        <li><strong>논란의 건물 건립 시기:</strong> 논란이 된 구 장교클럽은 1949년 말 착공, 1950년 초 완공되어 <strong>일제강점기 유산이 아님이 명확</strong>합니다.</li>
+                    </ul>
+                `
+            },
+            {
+                id: 'return',
+                title: "4. 부지 반환 운동 (1995-2014)",
+                subtitle: "외세 청산과 시민 주권 회복: '축제의 마당'",
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26a8 8 0 1 0-11.4 0H6"/><path d="m14 12.02-3 3-3-3"/></svg>`,
+                content: `
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">시민운동의 전략적 전환</h3>
+                    <p class="text-gray-700 mb-4">초기 반미 성향이 강했으나, 더 넓은 공감대 확보를 위해 운동의 목표를 <strong>'부지반환'이라는 보편적 의제</strong>로 전환했습니다.</p>
+                    <p class="text-gray-700 mb-4">진보 단체뿐만 아니라 인근 주민, 일반 시민 등 다양한 집단이 '부지반환'이라는 공동 목표 아래 결집했습니다. 서명운동, 인간띠잇기 등 시민 전체가 참여하는 <strong>'축제 마당'</strong>으로 변모하며 새로운 '문화적 기억'을 형성했습니다.</p>
+                    
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">부산시민공원의 탄생</h3>
+                    <p class="text-gray-700">2006년 캠프 하야리아 폐쇄, 2014년 5월 1일 마침내 부산시민공원이 개장하며 굴곡진 과거를 뒤로하고 희망의 공간으로 거듭났습니다.</p>
+                `
+            },
+            {
+                id: 'controversy',
+                title: "5. 기억의 충돌 (2014-2015)",
+                subtitle: "구 장교클럽 '욱일기' 문양 논란의 진실",
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 8.61a5.5 5.5 0 0 0-7.78 0L12 9.61l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.41l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78Z"/></svg>`,
+                content: `
+                    <div id="controversy-detail">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">논란의 핵심: 감정과 사실의 간극</h3>
+                        <p class="text-gray-700 mb-4">공원 개장 직후, 구 장교클럽 천장 문양이 일본 제국주의의 상징인 <strong>'욱일기'를 연상</strong>시킨다는 논란이 확산되었습니다. 항의 주체(보훈단체 등)는 역사적 진실과 무관하게, 상처를 자극하는 '기억의 표상'을 제거해야 한다고 강력히 주장했습니다.</p>
+                        
+                        <div class="flex flex-col sm:flex-row gap-4 mb-6">
+                            <div class="bg-red-50 p-4 rounded-lg flex-1 border border-red-200">
+                                <p class="font-bold text-red-600 mb-1">철거 주장 (소극적 망각/회피):</p>
+                                <p class="text-sm text-red-700">"문양 자체가 과거의 치욕과 아픔을 일깨우므로 제거해야 한다."</p>
+                            </div>
+                            <div class="bg-blue-50 p-4 rounded-lg flex-1 border border-blue-200">
+                                <p class="font-bold text-blue-600 mb-1">존치 주장 (적극적 망각/극복):</p>
+                                <p class="text-sm text-blue-700">"아픈 역사 또한 후세를 위해 남겨 교육의 자료로 삼아 극복해야 한다."</p>
+                            </div>
+                        </div>
+
+                        <button id="reveal-btn" onclick="revealTruth()" class="reveal-truth-button w-full bg-orange-500 text-white font-bold py-3 rounded-lg hover:bg-orange-600 shadow-md transform hover:scale-[1.01] transition-all">
+                            역사적 진실 규명: 문양의 정체는 무엇이었나?
+                        </button>
+                    </div>
+
+                    <div id="truth-revealed" class="hidden mt-6 bg-emerald-50 p-6 rounded-lg border-2 border-emerald-400">
+                        <h3 class="text-2xl font-bold text-emerald-800 mb-4">규명된 진실: 미 8군 엠블럼 디자인</h3>
+                        <p class="text-emerald-900 mb-4">해당 문양은 일본 욱일기와 무관하며, <strong>미 8군(US 8th Army)의 엠블럼</strong>을 형상화한 독자적인 디자인임이 확인되었습니다.</p>
+                        <ul class="list-disc pl-5 text-emerald-900 space-y-2 mb-6">
+                            <li><strong>중심부:</strong> 미 8군 공식 엠블럼인 붉은색 8각 도형과 흰색 십자가가 명확히 자리.</li>
+                            <li><strong>방사형 선:</strong> 총 20줄로, 욱일기의 특징인 8줄 또는 16줄과 수적으로 명백한 차이.</li>
+                        </ul>
+                        <div class="flex justify-center items-center">
+                            <div class="radial-pattern">
+                                <div class="center-shape"></div>
+                                <div class="line" style="transform: rotate(0deg);"></div>
+                                <div class="line" style="transform: rotate(18deg);"></div>
+                                <div class="line" style="transform: rotate(36deg);"></div>
+                                <div class="line" style="transform: rotate(54deg);"></div>
+                                <div class="line" style="transform: rotate(72deg);"></div>
+                                <div class="line" style="transform: rotate(90deg);"></div>
+                                <div class="line" style="transform: rotate(108deg);"></div>
+                                <div class="line" style="transform: rotate(126deg);"></div>
+                                <div class="line" style="transform: rotate(144deg);"></div>
+                                <div class="line" style="transform: rotate(162deg);"></div>
+                                <div class="line" style="transform: rotate(180deg);"></div>
+                                <div class="line" style="transform: rotate(198deg);"></div>
+                                <div class="line" style="transform: rotate(216deg);"></div>
+                                <div class="line" style="transform: rotate(234deg);"></div>
+                                <div class="line" style="transform: rotate(252deg);"></div>
+                                <div class="line" style="transform: rotate(270deg);"></div>
+                                <div class="line" style="transform: rotate(288deg);"></div>
+                                <div class="line" style="transform: rotate(306deg);"></div>
+                                <div class="line" style="transform: rotate(324deg);"></div>
+                                <div class="line" style="transform: rotate(342deg);"></div>
+                            </div>
+                        </div>
+                        <p class="text-sm italic mt-4 text-center text-emerald-700">※ (간략화된 모형) 20줄의 방사형 선과 중심부의 미 8군 상징으로 욱일기와 구분됨.</p>
+                        
+                        <h3 class="text-xl font-semibold text-emerald-800 mt-6 mb-3">결론: 임시방편으로서의 '가림막'</h3>
+                        <p class="text-emerald-900">역사적 진실에도 불구하고 감정적 갈등이 해소되지 않자, 부산시는 건물의 원형을 보존하되 논란을 차단하기 위해 <strong>천장에 가림막을 설치</strong>하는 것으로 갈등을 일시 봉합했습니다. 이는 합리적 설명만으로는 감정의 벽을 넘을 수 없음을 보여주는 사례로 남았습니다.</p>
+                    </div>
+                `
+            }
+        ];
+
+        let currentStep = 0;
+        const timelineSection = document.getElementById('timeline-section');
+        const contentDisplay = document.getElementById('content-display');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+        // Function to render the navigation menu
+        function renderNav() {
+            timelineSection.innerHTML = `<h2 class="text-2xl font-bold mb-4 text-gray-800 border-b pb-2">기억의 연대기</h2>`;
+            historyData.forEach((item, index) => {
+                const isActive = index === currentStep ? 'active' : '';
+                const navItem = document.createElement('div');
+                navItem.className = `timeline-item p-4 mb-2 rounded-lg transition-all duration-300 ${isActive}`;
+                navItem.onclick = () => setStep(index);
+                navItem.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <div class="text-emerald-600">${item.icon}</div>
+                        <div>
+                            <p class="font-medium text-gray-900">${item.title}</p>
+                            <p class="text-sm text-gray-500">${item.subtitle}</p>
+                        </div>
+                    </div>
+                `;
+                timelineSection.appendChild(navItem);
+            });
+        }
+
+        // Function to render the main content
+        function renderContent() {
+            const currentItem = historyData[currentStep];
+            
+            // Render basic content structure
+            contentDisplay.innerHTML = `
+                <h2 class="text-3xl font-bold text-gray-900 mb-2">${currentItem.title}</h2>
+                <p class="text-xl text-emerald-600 mb-6 border-b pb-4">${currentItem.subtitle}</p>
+                <div id="step-content" class="text-lg leading-relaxed">${currentItem.content}</div>
+            `;
+            
+            // Handle controversy step (Step 4, index 4) specific visibility
+            if (currentStep === 4) {
+                // Ensure initial state is correct for the controversy step
+                const truthRevealed = document.getElementById('truth-revealed');
+                const revealBtn = document.getElementById('reveal-btn');
+                if(truthRevealed) truthRevealed.classList.add('hidden');
+                if(revealBtn) {
+                    revealBtn.classList.remove('hidden');
+                    revealBtn.disabled = false;
+                    revealBtn.textContent = '역사적 진실 규명: 문양의 정체는 무엇이었나?';
+                }
+            }
+            
+            // Update button states
+            prevBtn.disabled = currentStep === 0;
+            nextBtn.disabled = currentStep === historyData.length - 1;
+
+            // Scroll to top of content display on step change
+            contentDisplay.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Function to set the current step
+        function setStep(index) {
+            currentStep = index;
+            renderNav();
+            renderContent();
+        }
+
+        // Function to navigate next/previous
+        function navigate(direction) {
+            const newStep = currentStep + direction;
+            if (newStep >= 0 && newStep < historyData.length) {
+                setStep(newStep);
+            }
+        }
+
+        // Function for the interactive "Reveal the Truth" button
+        window.revealTruth = function() {
+            const truthRevealed = document.getElementById('truth-revealed');
+            const revealBtn = document.getElementById('reveal-btn');
+            
+            if (truthRevealed && revealBtn) {
+                truthRevealed.classList.remove('hidden');
+                revealBtn.disabled = true;
+                revealBtn.textContent = '진실이 밝혀졌습니다.';
+                revealBtn.classList.add('bg-gray-400', 'hover:bg-gray-400');
+                revealBtn.classList.remove('bg-orange-500', 'hover:bg-orange-600');
+                truthRevealed.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Function to scroll to the timeline navigation (simulating a "go to timeline" action)
+        window.scrollToTimeline = function() {
+            if (timelineSection) {
+                timelineSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Initial render
+        window.onload = () => {
+            renderNav();
+            renderContent();
+        };
+
+    </script>
+</body>
+</html>
