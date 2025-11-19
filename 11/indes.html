@@ -136,4 +136,327 @@
             <h1 class="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight text-gray-900">
                 미국의 <span class="text-gradient">대한정책</span> 연구
             </h1>
-            <p class="text-lg text-gray-500 font-medium">195
+            <p class="text-lg text-gray-500 font-medium">1950년대 경제원조와 자본축적의 재해석</p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-slate-50/90 backdrop-blur-md py-6">
+        <div class="flex justify-center gap-2 md:gap-4 overflow-x-auto px-4">
+            <button onclick="showView('view1')" id="btn-view1" class="nav-pill active whitespace-nowrap">1. 시대별 흐름</button>
+            <button onclick="showView('view2')" id="btn-view2" class="nav-pill whitespace-nowrap">2. 원조의 결과 (도해)</button>
+            <button onclick="showView('view3')" id="btn-view3" class="nav-pill whitespace-nowrap">3. 새로운 시각 (구조도)</button>
+            <button onclick="showView('view4')" id="btn-view4" class="nav-pill whitespace-nowrap">4. 연구 목적</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-4xl mx-auto w-full px-6 pb-20">
+
+        <!-- VIEW 1: 시대별 연구 흐름 -->
+        <div id="view1" class="view-section animate-fade-in">
+            <div class="mb-8 text-center">
+                <h2 class="text-2xl font-bold text-gray-800">🕰️ 시대별 연구의 궤적</h2>
+                <p class="text-gray-500 mt-2 text-sm">주요 연구의 흐름을 표로 정리했습니다.</p>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="pretty-table">
+                    <thead>
+                        <tr>
+                            <th class="w-1/4">시기 / 연구자</th>
+                            <th class="w-1/3">핵심 관점</th>
+                            <th class="w-1/3">주요 내용</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-bold text-indigo-900">1970년대<br><span class="text-xs font-normal text-gray-500">홍성유</span></td>
+                            <td><span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs font-bold">정책 시행 비판</span></td>
+                            <td class="text-sm">방위지원 대신 <strong class="text-indigo-600">순수 경제원조</strong> 필요성 역설<br>(물고기 vs 낚싯대)</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold text-indigo-900">1980년대<br><span class="text-xs font-normal text-gray-500">김대환, 김양화</span></td>
+                            <td><span class="bg-red-100 text-red-600 px-2 py-1 rounded text-xs font-bold">민족경제론</span></td>
+                            <td class="text-sm">원조를 <strong class="text-red-500">독점자본 운동</strong>으로 규정<br>→ 대외 의존성 & 불평등 심화</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold text-indigo-900">90~00년대<br><span class="text-xs font-normal text-gray-500">공제욱, 이상철</span></td>
+                            <td><span class="bg-blue-100 text-blue-600 px-2 py-1 rounded text-xs font-bold">실증 분석</span></td>
+                            <td class="text-sm">대기업 형성 및 수입대체산업화 <strong class="text-blue-600">실태 해명</strong><br>(한계: 역사적 배경 설명 부족)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- VIEW 2: 원조 결과 모델 (도해 추가) -->
+        <div id="view2" class="view-section hidden animate-fade-in">
+            <div class="mb-8 text-center">
+                <h2 class="text-2xl font-bold text-gray-800">📊 1980년대 인과관계 모델</h2>
+                <p class="text-gray-500 mt-2 text-sm">원조가 어떻게 경제 구조를 왜곡시켰는지 보여주는 흐름도입니다.</p>
+            </div>
+
+            <!-- Flowchart Diagram -->
+            <div class="bg-slate-100 p-6 rounded-2xl mb-8">
+                <div class="flex flex-col md:flex-row items-stretch justify-center gap-4">
+                    
+                    <!-- Step 1 -->
+                    <div class="diagram-box flex-1 p-5 border-l-4 border-indigo-400 flex flex-col items-center text-center">
+                        <div class="bg-indigo-100 p-3 rounded-full mb-3 text-indigo-600">
+                            <i class="ph ph-package text-2xl"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-800 mb-2">1. 투입 (Input)</h3>
+                        <div class="text-xs text-gray-500 bg-gray-50 p-2 rounded w-full">
+                            • 미국 경제원조<br>
+                            • 귀속업체 불하<br>
+                            • 재정 금융 정책
+                        </div>
+                    </div>
+
+                    <!-- Arrow -->
+                    <div class="flex items-center justify-center arrow-right"></div>
+
+                    <!-- Step 2 -->
+                    <div class="diagram-box flex-1 p-5 border-l-4 border-indigo-500 flex flex-col items-center text-center">
+                        <div class="bg-indigo-100 p-3 rounded-full mb-3 text-indigo-600">
+                            <i class="ph ph-factory text-2xl"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-800 mb-2">2. 과정 (Growth)</h3>
+                        <div class="text-xs text-gray-500 bg-gray-50 p-2 rounded w-full">
+                            • 삼백산업 성장<br>
+                            • 제조업 대기업화<br>
+                            • 재벌 형성
+                        </div>
+                    </div>
+
+                    <!-- Arrow -->
+                    <div class="flex items-center justify-center arrow-right"></div>
+
+                    <!-- Step 3 -->
+                    <div class="diagram-box flex-1 p-5 border-l-4 border-red-500 flex flex-col items-center text-center ring-2 ring-red-100">
+                        <div class="bg-red-100 p-3 rounded-full mb-3 text-red-600">
+                            <i class="ph ph-warning-circle text-2xl"></i>
+                        </div>
+                        <h3 class="font-bold text-red-700 mb-2">3. 결과 (Result)</h3>
+                        <div class="text-xs text-red-800 bg-red-50 p-2 rounded w-full font-bold">
+                            "대외 의존적<br>자본축적 구조 고착화"
+                        </div>
+                    </div>
+                </div>
+                <p class="text-center text-xs text-gray-400 mt-4">※ 민족경제론적 시각에서의 인과관계 분석</p>
+            </div>
+        </div>
+
+        <!-- VIEW 3: 새로운 시각 (구조도 추가) -->
+        <div id="view3" class="view-section hidden animate-fade-in">
+            <div class="mb-8 text-center">
+                <h2 class="text-2xl font-bold text-gray-800">🔍 동아시아 지역통합 전략도</h2>
+                <p class="text-gray-500 mt-2 text-sm">미국-일본-한국의 삼각 관계를 시각화했습니다.</p>
+            </div>
+
+            <!-- Visual Concept Map -->
+            <div class="bg-gradient-to-b from-slate-100 to-white p-8 rounded-2xl mb-10 relative overflow-hidden">
+                <!-- Decorative BG -->
+                <div class="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
+                    <div class="absolute top-10 left-10 w-32 h-32 bg-indigo-500 rounded-full blur-3xl"></div>
+                    <div class="absolute bottom-10 right-10 w-32 h-32 bg-blue-500 rounded-full blur-3xl"></div>
+                </div>
+
+                <div class="relative z-10 flex flex-col items-center">
+                    <!-- US -->
+                    <div class="bg-indigo-600 text-white px-8 py-3 rounded-full shadow-lg font-bold text-lg mb-2 flex items-center gap-2">
+                        <i class="ph ph-globe"></i> 미국 (USA)
+                    </div>
+                    <div class="text-xs text-indigo-800 font-bold mb-4 tracking-widest">냉전 전략 & 원조 제공</div>
+                    
+                    <!-- Arrows down -->
+                    <div class="flex gap-20 mb-2">
+                        <div class="h-8 w-0.5 bg-indigo-300"></div>
+                        <div class="h-8 w-0.5 bg-indigo-300"></div>
+                    </div>
+
+                    <!-- Japan & Korea Container -->
+                    <div class="flex flex-col md:flex-row gap-8 md:gap-16 items-start">
+                        
+                        <!-- Japan -->
+                        <div class="flex flex-col items-center">
+                            <div class="bg-white border-2 border-indigo-200 px-6 py-3 rounded-xl shadow-md font-bold text-gray-700 flex items-center gap-2 w-48 justify-center">
+                                <i class="ph ph-buildings"></i> 일본 (Japan)
+                            </div>
+                            <div class="mt-2 text-xs text-gray-500 text-center bg-white/50 p-2 rounded">
+                                • 경제적 배후지<br>
+                                • 공업 생산 기지
+                            </div>
+                        </div>
+
+                        <!-- Connection Arrow Horizontal (Desktop) -->
+                        <div class="hidden md:flex items-center justify-center h-full pt-4">
+                            <div class="flex flex-col items-center">
+                                <div class="text-xs text-gray-400 mb-1">영향력</div>
+                                <div class="w-12 h-0.5 bg-dashed bg-gray-300 border-t-2 border-dashed border-gray-300"></div>
+                                <div class="text-xs text-gray-400 mt-1">연계</div>
+                            </div>
+                        </div>
+
+                        <!-- Korea -->
+                        <div class="flex flex-col items-center">
+                            <div class="bg-white border-2 border-indigo-200 px-6 py-3 rounded-xl shadow-md font-bold text-gray-700 flex items-center gap-2 w-48 justify-center">
+                                <i class="ph ph-shield-check"></i> 한국 (Korea)
+                            </div>
+                            <div class="mt-2 text-xs text-gray-500 text-center bg-white/50 p-2 rounded">
+                                • 식량/원료 공급지<br>
+                                • <span class="text-red-500 font-bold">반공 군사 보루</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-center text-xs text-gray-400 mt-8">구조도: 미국 중심의 지역통합 전략 내 위상 차이</p>
+            </div>
+
+            <!-- Interactive Scholars Accordion -->
+            <div class="mt-4">
+                <h3 class="text-lg font-bold text-indigo-800 mb-4 flex items-center">
+                    <span class="bg-indigo-100 p-1 rounded mr-2">🎓</span> 주요 학자들의 주장 (클릭)
+                </h3>
+                
+                <div class="space-y-3">
+                    <!-- Scholar 1 -->
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-indigo-100 hover:border-indigo-300 cursor-pointer transition active-card" onclick="toggleCard(this)">
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-indigo-900">커밍스 & 맥글로슬렌</span>
+                            <svg class="chevron w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                        <div class="expand-content bg-indigo-50 rounded-lg p-3 text-sm text-indigo-800 leading-relaxed">
+                            <strong>"한국은 일본 경제의 배후지"</strong><br>
+                            한국을 일본에 대한 식량 및 원료 공급지로 평가하며, 이러한 일본 중심의 경제적 가치 평가 속에서 미국의 대한정책이 구상되었다고 봅니다.
+                        </div>
+                    </div>
+
+                    <!-- Scholar 2 -->
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-indigo-100 hover:border-indigo-300 cursor-pointer transition" onclick="toggleCard(this)">
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-indigo-900">이종원</span>
+                            <svg class="chevron w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                        <div class="expand-content bg-indigo-50 rounded-lg p-3 text-sm text-indigo-800 leading-relaxed">
+                            <strong>"냉전 구조 속의 일본 변수"</strong><br>
+                            동아시아 냉전의 구조 속에서 '일본'이라는 변수를 통해 1950년대 미국의 대한 경제정책 변화를 분석했습니다.
+                        </div>
+                    </div>
+
+                    <!-- Scholar 3 -->
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-indigo-100 hover:border-indigo-300 cursor-pointer transition" onclick="toggleCard(this)">
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-indigo-900">허버트 빅스 (Herbert Bix)</span>
+                            <svg class="chevron w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                        <div class="expand-content bg-indigo-50 rounded-lg p-3 text-sm text-indigo-800 leading-relaxed">
+                            <strong>"군사전략적 반공 보루"</strong><br>
+                            미국에 의존한 일본의 공업화와 한국의 근대화를 통해, 두 나라가 강력한 <strong class="text-red-600">반공 보루</strong> 역할을 수행하도록 설계했다고 봅니다.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW 4: 연구 목적 -->
+        <div id="view4" class="view-section hidden animate-fade-in">
+            <div class="mb-8 text-center">
+                <h2 class="text-2xl font-bold text-gray-800">🎯 저자의 최종 연구 목적</h2>
+                <p class="text-gray-500 mt-2 text-sm">카드를 <span class="text-indigo-600 font-bold">클릭</span>하여 연구의 의미를 확인하세요.</p>
+            </div>
+
+            <div class="space-y-4">
+                <div class="bg-white p-5 rounded-xl shadow-md hover-card border-2 border-transparent cursor-pointer transition" onclick="toggleCard(this)">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold mr-4 shrink-0">1</div>
+                            <div>
+                                <h3 class="font-bold text-gray-800">정책 형성과정 및 성격 규명</h3>
+                                <p class="text-xs text-gray-500">미국 전략 + 한국 내부 조건의 결합</p>
+                            </div>
+                        </div>
+                        <svg class="chevron w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="expand-content bg-indigo-50 rounded-lg p-4 text-sm text-indigo-800 leading-relaxed">
+                        <strong>💡 연구의 의의:</strong><br>
+                        단순한 정책 나열이 아닙니다. 미국의 동아시아 전략과 한국의 정치·경제적 조건이 만나는 지점을 포착하여, 1950년대 <strong>미국 원조의 진짜 성격을 규명</strong>하는 기초 작업입니다.
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-xl shadow-md hover-card border-2 border-transparent cursor-pointer transition" onclick="toggleCard(this)">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="h-10 w-10 rounded-full bg-violet-100 flex items-center justify-center text-violet-600 font-bold mr-4 shrink-0">2</div>
+                            <div>
+                                <h3 class="font-bold text-gray-800">한미 간 논의 구조 해명</h3>
+                                <p class="text-xs text-gray-500">원조협정 체결 및 운영 과정 분석</p>
+                            </div>
+                        </div>
+                        <svg class="chevron w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="expand-content bg-violet-50 rounded-lg p-4 text-sm text-violet-800 leading-relaxed">
+                        <strong>💡 연구의 의의:</strong><br>
+                        기존에는 미국의 '일방적 요구'로만 파악했습니다. 하지만 이 연구는 협정 체결 전후의 <strong>치열한 논의 과정</strong>을 복원하여, 한미관계를 상호 작용의 관점에서 입체적으로 재조명합니다.
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-xl shadow-md hover-card border-2 border-transparent cursor-pointer transition" onclick="toggleCard(this)">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="h-10 w-10 rounded-full bg-fuchsia-100 flex items-center justify-center text-fuchsia-600 font-bold mr-4 shrink-0">3</div>
+                            <div>
+                                <h3 class="font-bold text-gray-800">원조 기구의 역할과 변화 분석</h3>
+                                <p class="text-xs text-gray-500">실제 집행 및 조정 기구(합동경제위 등)</p>
+                            </div>
+                        </div>
+                        <svg class="chevron w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="expand-content bg-fuchsia-50 rounded-lg p-4 text-sm text-fuchsia-800 leading-relaxed">
+                        <strong>💡 연구의 의의:</strong><br>
+                        정책은 결국 '기구'를 통해 실행됩니다. 미국이 원조 기구를 매개로 한국 정부의 경제 정책 입안에 <strong>어떻게 개입하고 관철시켰는지</strong>, 그 구체적인 실행 메커니즘을 밝혀냅니다.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        function showView(viewId) {
+            // Hide all views
+            document.querySelectorAll('.view-section').forEach(el => el.classList.add('hidden'));
+            
+            // Show selected view
+            const target = document.getElementById(viewId);
+            target.classList.remove('hidden');
+            
+            // Simple animation reset
+            target.style.opacity = '0';
+            target.style.transform = 'translateY(10px)';
+            setTimeout(() => {
+                target.style.transition = 'all 0.4s ease-out';
+                target.style.opacity = '1';
+                target.style.transform = 'translateY(0)';
+            }, 10);
+
+            // Update Nav Pills
+            document.querySelectorAll('.nav-pill').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('btn-' + viewId).classList.add('active');
+        }
+
+        // Unified toggle function
+        function toggleCard(card) {
+            if (card.classList.contains('active-card')) {
+                card.classList.remove('active-card');
+            } else {
+                // If you want accordion behavior (only one open at a time), uncomment below:
+                // const parent = card.parentNode;
+                // parent.querySelectorAll('.active-card').forEach(c => c.classList.remove('active-card'));
+                
+                card.classList.add('active-card');
+            }
+        }
+    </script>
+</body>
+</html>
