@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미국 대외원조정책의 기조와 대한원조</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: #f8fafc; /* Slate-50 */
+            color: #334155; /* Slate-700 */
+        }
+
+        /* Gradient Text */
+        .text-gradient {
+            background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%); /* Sky to Blue */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Custom Table Styles */
+        .pretty-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+        .pretty-table th {
+            background-color: #e0f2fe; /* Sky-100 */
+            color: #0284c7; /* Sky-600 */
+            font-weight: 800;
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 2px solid #bae6fd;
+        }
+        .pretty-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #f1f5f9;
+            color: #475569;
+        }
+        .pretty-table tr:last-child td {
+            border-bottom: none;
+        }
+        .pretty-table tr:hover td {
+            background-color: #fafafa;
+        }
+
+        /* Navigation Pill Styles */
+        .nav-pill {
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            transition: all 0.3s;
+            color: #64748b;
+            cursor: pointer;
+        }
+        .nav-pill.active {
+            background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+            color: white;
+            box-shadow: 0 4px 10px rgba(14, 165, 233, 0.4);
+        }
+
+        /* Animations */
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Interactive Card Styles */
+        .expand-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .expand-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .expand-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out, margin-top 0.3s ease;
+            opacity: 0;
+        }
+        .active-card .expand-content {
+            max-height: 300px;
+            opacity: 1;
+            margin-top: 1rem;
+        }
+        .active-card {
+            border-color: #3b82f6;
+            background-color: #eff6ff; /* Blue-50 */
+        }
+        .chevron {
+            transition: transform 0.3s ease;
+        }
+        .active-card .chevron {
+            transform: rotate(180deg);
+        }
+
+        /* Chart/Diagram Styles */
+        .bar-container {
+            width: 100%;
+            background-color: #f1f5f9;
+            border-radius: 9999px;
+            overflow: hidden;
+            height: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .bar-fill {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: bold;
+            transition: width 1s ease-in-out;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen bg-slate-50">
+
+    <!-- Header -->
+    <header class="pt-16 pb-10 px-6 text-center bg-white shadow-sm">
+        <div class="max-w-4xl mx-auto">
+            <span class="inline-block py-1 px-3 rounded-full bg-sky-100 text-sky-600 text-xs font-bold tracking-wide mb-4">US AID POLICY</span>
+            <h1 class="text-3xl md:text-4xl font-extrabold mb-4 tracking-tight text-gray-900 leading-tight">
+                미국 대외원조정책의 <span class="text-gradient">기조와 대한원조</span>
+            </h1>
+            <p class="text-lg text-gray-500 font-medium">냉전 시기 원조의 목적, 유형, 그리고 성격 분석</p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-slate-50/90 backdrop-blur-md py-6">
+        <div class="flex justify-center gap-2 md:gap-4 overflow-x-auto px-4">
+            <button onclick="showView('view1')" id="btn-view1" class="nav-pill active whitespace-nowrap">1. 정책 기조의 변화</button>
+            <button onclick="showView('view2')" id="btn-view2" class="nav-pill whitespace-nowrap">2. 원조의 유형 (3:7)</button>
+            <button onclick="showView('view3')" id="btn-view3" class="nav-pill whitespace-nowrap">3. 군사/경제적 성격</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-4xl mx-auto w-full px-6 pb-20">
+
+        <!-- VIEW 1: 정책 기조의 변화 -->
+        <div id="view1" class="view-section animate-fade-in">
+            <div class="mb-8 text-center">
+                <h2 class="text-2xl font-bold text-gray-800">🔄 대외원조 목적의 변화</h2>
+                <p class="text-gray-500 mt-2 text-sm">2차 대전 전후, 미국의 전략적 목표 변화를 비교했습니다.</p>
+            </div>
+
+            <!-- Comparison Table -->
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <!-- Pre-WWII -->
+                <div class="bg-white p-6 rounded-2xl shadow-md border-t-4 border-gray-400">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-gray-700">2차 대전 이전</h3>
+                        <span class="bg-gray-100 text-gray-600 text-xs font-bold px-2 py-1 rounded">1941 무기대여법</span>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <i class="ph ph-target text-2xl text-gray-400 mr-3"></i>
+                            <div>
+                                <strong class="block text-gray-800 text-sm">원조의 목적</strong>
+                                <span class="text-sm text-gray-600">미국의 직접 참가 없이 <strong class="text-gray-800">연합국에 군사원조</strong>를 제공하여 승리를 유도.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Post-WWII -->
+                <div class="bg-white p-6 rounded-2xl shadow-md border-t-4 border-blue-500 relative overflow-hidden">
+                    <!-- Highlight Badge -->
+                    <div class="absolute top-0 right-0 bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-bl-xl">핵심</div>
+                    
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-blue-600">2차 대전 이후 (냉전)</h3>
+                        <span class="bg-blue-100 text-blue-600 text-xs font-bold px-2 py-1 rounded">세계전략</span>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <i class="ph ph-globe-hemisphere-west text-2xl text-blue-500 mr-3"></i>
+                            <div>
+                                <strong class="block text-gray-800 text-sm">대외정책 기본 목적</strong>
+                                <span class="text-sm text-gray-600">미국 중심의 <strong>자본주의 진영 강화</strong> 및 소련 봉쇄.</span>
+                                <p class="text-xs text-gray-400 mt-1">(배경: 소련 급성장, 사회주의 진영 확대)</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="ph ph-shield-check text-2xl text-blue-500 mr-3"></i>
+                            <div>
+                                <strong class="block text-gray-800 text-sm">원조의 세부 목적</strong>
+                                <ul class="list-disc list-inside text-sm text-gray-600 mt-1">
+                                    <li>수원국의 빈곤 경감</li>
+                                    <li><strong>내부 전복 위험 방지</strong></li>
+                                    <li>결과: 자유 진영의 집단 방위력 강화</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="ph ph-wrench text-2xl text-blue-500 mr-3"></i>
+                            <div>
+                                <strong class="block text-gray-800 text-sm">원조의 형태</strong>
+                                <span class="text-sm text-gray-600">직접 군사원조 + 방위수준 유지를 위한 <strong>경제건설 지원</strong> (방위지원 경제원조)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <p class="text-center text-sm text-gray-500 bg-slate-100 p-3 rounded-lg">
+                👉 이에 따라 경제원조는 <strong>'방위지원 원조'</strong>라는 변용된 형태로 나타나게 됩니다.
+            </p>
+        </div>
+
+        <!-- VIEW 2: 원조의 유형 (방위지원 원조) -->
+        <div id="view2" class="view-section hidden animate-fade-in">
+            <div class="mb-8 text-center">
+                <h2 class="text-2xl font-bold text-gray-800">📊 방위지원 원조의 구조 (한국)</h2>
+                <p class="text-gray-500 mt-2 text-sm">한국에 대한 원조는 <strong>'안정'</strong>에 방점을 두어 3:7의 비율을 보였습니다.</p>
+            </div>
+
+            <!-- NEW INTERACTIVE CARD FOR DEFINITION -->
+            <div class="expand-card bg-white p-5 rounded-xl shadow-md border-l-8 border-blue-300 mb-8" onclick="toggleCard(this)">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <i class="ph ph-info text-2xl text-blue-500 mr-3"></i>
+                        <h3 class="font-bold text-lg text-blue-700">방위지원 원조란?</h3>
+                    </div>
+                    <svg class="chevron w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </div>
+                <div class="expand-content bg-white mt-0">
+                    <div class="p-4 bg-blue-50 rounded-lg text-sm text-blue-800 leading-relaxed mt-3">
+                        방위지원원조는 1951년 제정된 상호안전보장법에 근거를 둔다. 1960년까지 미국의 대외 경제원조의 주축을 이루었다.
+                    </div>
+                </div>
+            </div>
+            <!-- END NEW INTERACTIVE CARD -->
+
+            <!-- Concept Diagram Box -->
+            <div class="bg-white p-8 rounded-2xl shadow-lg mb-8">
+                <h3 class="font-bold text-gray-800 mb-6 text-center">🇰🇷 한국에 대한 원조 배분 비율 (3 : 7)</h3>
+                
+                <!-- Visual Chart -->
+                <div class="flex flex-col mb-6">
+                    <!-- Plan Aid Bar -->
+                    <div class="flex items-center mb-2">
+                        <div class="w-24 text-xs font-bold text-right mr-3 text-indigo-600">계획 원조 (30%)</div>
+                        <div class="flex-grow bg-indigo-100 rounded-r-full h-8 relative">
+                            <div class="absolute top-0 left-0 h-full bg-indigo-500 rounded-full flex items-center justify-end pr-3 text-white text-xs font-bold" style="width: 30%;">Project</div>
+                        </div>
+                    </div>
+                    <!-- Non-Plan Aid Bar -->
+                    <div class="flex items-center">
+                        <div class="w-24 text-xs font-bold text-right mr-3 text-sky-600">비계획 원조 (70%)</div>
+                        <div class="flex-grow bg-sky-100 rounded-r-full h-8 relative">
+                            <div class="absolute top-0 left-0 h-full bg-sky-500 rounded-full flex items-center justify-end pr-3 text-white text-xs font-bold" style="width: 70%;">Non-Project</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detailed Comparison Table within Card -->
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="border border-indigo-100 bg-indigo-50 p-4 rounded-xl">
+                        <strong class="block text-indigo-700 mb-2 flex items-center"><i class="ph ph-factory mr-2"></i> ① 계획 원조 (Project Aid)</strong>
+                        <ul class="text-xs text-indigo-800 space-y-1 list-disc list-inside">
+                            <li>각종 산업 시설 복구</li>
+                            <li>건설에 필요한 <strong>시설재</strong> 공여</li>
+                            <li>비중: <strong>낮음 (30%)</strong></li>
+                            <li>의미: 경제 발전보다는 후순위</li>
+                        </ul>
+                    </div>
+                    <div class="border border-sky-100 bg-sky-50 p-4 rounded-xl">
+                        <strong class="block text-sky-700 mb-2 flex items-center"><i class="ph ph-package mr-2"></i> ② 비계획 원조 (Non-Project Aid)</strong>
+                        <ul class="text-xs text-sky-800 space-y-1 list-disc list-inside">
+                            <li>산업 가동용 <strong>원자재</strong></li>
+                            <li>일반 <strong>소비 물자</strong> 공여</li>
+                            <li>비중: <strong>높음 (70%)</strong></li>
+                            <li>의미: 경제 안정 및 <strong>방위력 유지</strong> 주력</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW 3: 군사적/경제적 성격 -->
+        <div id="view3" class="view-section hidden animate-fade-in">
+            <div class="mb-8 text-center">
+                <h2 class="text-2xl font-bold text-gray-800">⚖️ 원조의 이중적 성격</h2>
+                <p class="text-gray-500 mt-2 text-sm">원조는 순수한 지원이 아니었습니다. 숨겨진 군사적, 경제적 목적을 카드를 눌러 확인하세요.</p>
+            </div>
+
+            <div class="space-y-4">
+                <!-- Military Nature -->
+                <div class="expand-card bg-white p-5 rounded-xl shadow-md border-l-8 border-red-500 active-card" onclick="toggleCard(this)">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="h-10 w-10 rounded-full bg-red-100 flex items-center justify-center text-red-600 font-bold mr-4 shrink-0">
+                                <i class="ph ph-sword text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-800">1. 군사적 성격 (안보)</h3>
+                                <p class="text-xs text-gray-500">단순한 경제 원조가 아님</p>
+                            </div>
+                        </div>
+                        <svg class="chevron w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="expand-content bg-white mt-0">
+                        <div class="p-4 bg-red-50 rounded-lg text-sm text-red-800 leading-relaxed mt-3">
+                            <ul class="list-disc list-inside space-y-1">
+                                <li><strong>직접 군사 원조:</strong> 대량의 무기 무상 제공.</li>
+                                <li><strong>경제 원조의 군사화:</strong> 원조 물자 판매 대금(대충자금)의 대부분이 <strong>국방비</strong>로 사용됨.</li>
+                                <li><strong>목적:</strong> 공산주의에 맞서 군사력을 유지하기 위한 일차적 방편.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Economic Nature -->
+                <div class="expand-card bg-white p-5 rounded-xl shadow-md border-l-8 border-green-500" onclick="toggleCard(this)">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-bold mr-4 shrink-0">
+                                <i class="ph ph-currency-dollar text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-800">2. 경제적 성격 (자본 이익)</h3>
+                                <p class="text-xs text-gray-500">선진국 독점 자본의 운동 양식</p>
+                            </div>
+                        </div>
+                        <svg class="chevron w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="expand-content bg-white mt-0">
+                        <div class="p-4 bg-green-50 rounded-lg text-sm text-green-800 leading-relaxed mt-3">
+                            <ul class="list-disc list-inside space-y-1">
+                                <li><strong>시장 문제 해결:</strong> 황폐한 자본주의 진영 부흥 → 미국 상품 수요 창출.</li>
+                                <li><strong>민간 자본 수출:</strong> 미국 투자가 보호, 경영 불간섭 조항 등을 통해 <strong>이윤 추구의 과정</strong>으로 활용.</li>
+                                <li><strong>원료 확보:</strong> 필요한 원자재의 안정적 공급처 확보 기여.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Summary Box -->
+            <div class="mt-8 bg-slate-100 p-6 rounded-xl text-center">
+                <h4 class="font-bold text-gray-700 mb-2">📌 결론: 원조의 본질</h4>
+                <p class="text-sm text-gray-600">
+                    "원조는 선진국 독점 자본의 운동양식이자, 냉전 체제 하에서 자유 진영의 <strong>안보(방위)</strong>를 위한 수단이었다."
+                </p>
+            </div>
+        </div>
+        
+        <!-- Next Button was here -->
+
+    </main>
+
+    <script>
+        function showView(viewId) {
+            // Hide all views
+            document.querySelectorAll('.view-section').forEach(el => el.classList.add('hidden'));
+            
+            // Show selected view
+            const target = document.getElementById(viewId);
+            target.classList.remove('hidden');
+            
+            // Simple animation reset
+            target.style.opacity = '0';
+            target.style.transform = 'translateY(10px)';
+            setTimeout(() => {
+                target.style.transition = 'all 0.4s ease-out';
+                target.style.opacity = '1';
+                target.style.transform = 'translateY(0)';
+            }, 10);
+
+            // Update Nav Pills
+            document.querySelectorAll('.nav-pill').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('btn-' + viewId).classList.add('active');
+        }
+
+        function toggleCard(card) {
+            if (card.classList.contains('active-card')) {
+                card.classList.remove('active-card');
+            } else {
+                // Accordion behavior: Close others
+                document.querySelectorAll('.expand-card').forEach(c => c.classList.remove('active-card'));
+                card.classList.add('active-card');
+            }
+        }
+    </script>
+</body>
+</html>
