@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1950년대 미국의 대한정책 연구</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons (깔끔한 아이콘 사용) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: #f8fafc; /* Slate-50 */
+            color: #334155; /* Slate-700 */
+        }
+
+        /* Gradient Text */
+        .text-gradient {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Custom Table Styles */
+        .pretty-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+        .pretty-table th {
+            background-color: #eef2ff; /* Indigo-50 */
+            color: #4f46e5; /* Indigo-600 */
+            font-weight: 800;
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 2px solid #e0e7ff;
+        }
+        .pretty-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #f1f5f9;
+            color: #475569;
+        }
+        .pretty-table tr:last-child td {
+            border-bottom: none;
+        }
+        .pretty-table tr:hover td {
+            background-color: #fafafa;
+        }
+
+        /* Navigation Pill Styles */
+        .nav-pill {
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            transition: all 0.3s;
+            color: #64748b;
+            cursor: pointer;
+        }
+        .nav-pill.active {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            box-shadow: 0 4px 10px rgba(99, 102, 241, 0.4);
+        }
+
+        /* Expand Animation */
+        .expand-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out, margin-top 0.3s ease;
+            opacity: 0;
+        }
+        .active-card .expand-content {
+            max-height: 300px;
+            opacity: 1;
+            margin-top: 1rem;
+        }
+        .active-card {
+            border-color: #6366f1;
+            background-color: #fdf4ff;
+        }
+        .chevron {
+            transition: transform 0.3s ease;
+        }
+        .active-card .chevron {
+            transform: rotate(180deg);
+        }
+
+        /* Diagram Styles */
+        .diagram-box {
+            position: relative;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .diagram-box:hover {
+            transform: translateY(-2px);
+        }
+        .arrow-down::after {
+            content: '▼';
+            display: block;
+            text-align: center;
+            color: #cbd5e1;
+            font-size: 1.2rem;
+            margin: 0.5rem 0;
+        }
+        .arrow-right::after {
+            content: '▶';
+            display: block;
+            text-align: center;
+            color: #cbd5e1;
+            font-size: 1.2rem;
+            margin: 0 0.5rem;
+        }
+        
+        /* For mobile responsive diagrams */
+        @media (max-width: 768px) {
+            .arrow-right::after {
+                content: '▼';
+                margin: 0.5rem 0;
+            }
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen bg-slate-50">
+
+    <!-- Header -->
+    <header class="pt-16 pb-10 px-6 text-center bg-white shadow-sm">
+        <div class="max-w-4xl mx-auto">
+            <span class="inline-block py-1 px-3 rounded-full bg-indigo-100 text-indigo-600 text-xs font-bold tracking-wide mb-4">HISTORICAL RESEARCH</span>
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight text-gray-900">
+                미국의 <span class="text-gradient">대한정책</span> 연구
+            </h1>
+            <p class="text-lg text-gray-500 font-medium">195
