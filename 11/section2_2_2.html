@@ -1,1 +1,346 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>대외원조의 지역별 특징</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: #f8fafc; /* Slate-50 */
+            color: #334155; /* Slate-700 */
+        }
 
+        /* Gradient Text */
+        .text-gradient {
+            background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%); /* Blue to Violet */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Navigation Pill Styles */
+        .nav-pill {
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            transition: all 0.3s;
+            color: #64748b;
+            cursor: pointer;
+        }
+        .nav-pill.active {
+            background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            color: white;
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.4);
+        }
+
+        /* Animations */
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+            opacity: 0;
+            transform: translateY(15px);
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Chart Bars Animation */
+        .bar-fill {
+            width: 0%;
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Interactive Card */
+        .hover-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Custom Tooltip */
+        .tooltip {
+            visibility: hidden;
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #1e293b;
+            color: white;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 10;
+        }
+        .has-tooltip:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen bg-slate-50">
+
+    <!-- Header -->
+    <header class="pt-16 pb-10 px-6 text-center bg-white shadow-sm">
+        <div class="max-w-4xl mx-auto">
+            <span class="inline-block py-1 px-3 rounded-full bg-violet-100 text-violet-600 text-xs font-bold tracking-wide mb-4">US AID REGIONAL ANALYSIS</span>
+            <h1 class="text-3xl md:text-4xl font-extrabold mb-4 tracking-tight text-gray-900 leading-tight">
+                대외원조의 <span class="text-gradient">지역별 특징</span>
+            </h1>
+            <p class="text-lg text-gray-500 font-medium">유럽 중심에서 아시아 및 저개발국으로의 전환</p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-slate-50/90 backdrop-blur-md py-6">
+        <div class="flex justify-center gap-2 md:gap-4 overflow-x-auto px-4">
+            <button onclick="showView('view1')" id="btn-view1" class="nav-pill active whitespace-nowrap">1. 지역별 비중 변화</button>
+            <button onclick="showView('view2')" id="btn-view2" class="nav-pill whitespace-nowrap">2. 동남아시아 집중</button>
+            <button onclick="showView('view3')" id="btn-view3" class="nav-pill whitespace-nowrap">3. 결론 및 요약</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-4xl mx-auto w-full px-6 pb-20">
+
+        <!-- VIEW 1: 지역별 비중 변화 (Bar Chart Visualization - Restored) -->
+        <div id="view1" class="view-section animate-fade-in">
+            <div class="mb-8 text-center">
+                <h2 class="text-2xl font-bold text-gray-800">🌍 미국 대외경제원조의 지역별 추이 (Bar Chart)</h2>
+                <p class="text-gray-500 mt-2 text-sm">마샬 플랜(유럽)에서 저개발국(아시아)으로의 중심 이동을 확인하세요.</p>
+            </div>
+
+            <!-- Interactive Chart Card (Restored Bar Chart) -->
+            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg mb-8 border border-slate-100">
+                
+                <!-- Legend -->
+                <div class="flex justify-center gap-6 mb-6 text-xs font-bold">
+                    <div class="flex items-center"><span class="w-3 h-3 bg-indigo-500 rounded-full mr-2"></span>유럽 및 일본</div>
+                    <div class="flex items-center"><span class="w-3 h-3 bg-emerald-500 rounded-full mr-2"></span>동남아시아</div>
+                    <div class="flex items-center"><span class="w-3 h-3 bg-gray-300 rounded-full mr-2"></span>기타 지역</div>
+                </div>
+
+                <!-- Period 1: 1946-49 -->
+                <div class="mb-8">
+                    <div class="flex justify-between items-end mb-1">
+                        <span class="font-bold text-gray-700">1946-1949 (전후 복구기)</span>
+                    </div>
+                    <div class="w-full h-8 bg-gray-100 rounded-full overflow-hidden flex has-tooltip cursor-pointer">
+                        <div class="bar-fill bg-indigo-500 h-full flex items-center justify-center text-xs text-white" style="width: 86.7%;">86.7%</div> <!-- Europe -->
+                        <div class="bar-fill bg-emerald-500 h-full flex items-center justify-center text-xs text-white" style="width: 8.7%;">8.7%</div> <!-- Asia -->
+                        <div class="bar-fill bg-gray-300 h-full" style="width: 4.6%;"></div>
+                        <span class="tooltip">유럽 86.7% (압도적) / 아시아 8.7%</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1 text-right">👉 마샬 플랜: 서구 유럽 집중</p>
+                </div>
+
+                <!-- Period 2: 1950-54 -->
+                <div class="mb-8">
+                    <div class="flex justify-between items-end mb-1">
+                        <span class="font-bold text-gray-700">1950-1954 (한국전쟁기)</span>
+                    </div>
+                    <div class="w-full h-8 bg-gray-100 rounded-full overflow-hidden flex has-tooltip cursor-pointer">
+                        <div class="bar-fill bg-indigo-500 h-full flex items-center justify-center text-xs text-white" style="width: 66.3%;">66.3%</div>
+                        <div class="bar-fill bg-emerald-500 h-full flex items-center justify-center text-xs text-white" style="width: 16.8%;">16.8%</div>
+                        <div class="bar-fill bg-gray-300 h-full" style="width: 16.9%;"></div>
+                        <span class="tooltip">유럽 66.3% / 아시아 16.8% (증가)</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1 text-right">👉 NATO, 한국전쟁: 군사 원조 증가</p>
+                </div>
+
+                <!-- Period 3: 1955-59 -->
+                <div class="mb-2">
+                    <div class="flex justify-between items-end mb-1">
+                        <span class="font-bold text-gray-700">1955-1959 (냉전 심화기)</span>
+                    </div>
+                    <div class="w-full h-8 bg-gray-100 rounded-full overflow-hidden flex has-tooltip cursor-pointer">
+                        <div class="bar-fill bg-indigo-500 h-full flex items-center justify-center text-xs text-white" style="width: 15.4%;">15.4%</div>
+                        <div class="bar-fill bg-emerald-500 h-full flex items-center justify-center text-xs text-white" style="width: 50.5%;">50.5%</div>
+                        <div class="bar-fill bg-gray-300 h-full" style="width: 34.1%;"></div>
+                        <span class="tooltip">유럽 15.4% (급감) / 아시아 50.5% (급증)</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1 text-right">👉 저개발국(동남아) 중심 전환</p>
+                </div>
+            </div>
+
+            <!-- Key Insight Box -->
+            <div class="bg-violet-50 p-5 rounded-xl border border-violet-100 flex items-start">
+                <i class="ph ph-lightbulb text-2xl text-violet-600 mr-3 mt-1"></i>
+                <div>
+                    <h3 class="font-bold text-violet-800 mb-1">전환의 배경</h3>
+                    <p class="text-sm text-violet-700 leading-relaxed">
+                        서유럽 경제가 회복됨에 따라 원조가 감소한 반면, <strong>소련 등 사회주의 진영</strong>이 1955년경부터 아시아 지역에 대한 경제 협력을 강화하자 미국도 이에 대응하여 동남아시아 등 <strong>저개발 지역 원조를 대폭 확대</strong>했습니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW 2: 동남아시아 지역 원조 (1945-1959) -->
+        <div id="view2" class="view-section hidden animate-fade-in">
+            <div class="mb-8 text-center">
+                <h2 class="text-2xl font-bold text-gray-800">🌏 동남아시아 원조 집중 국가</h2>
+                <p class="text-gray-500 mt-2 text-sm">미국과 상호방위협정을 체결한 반공 국가들에 원조가 집중되었습니다.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Top 3 Recipients Visualization -->
+                <div class="bg-white p-6 rounded-2xl shadow-md border-t-4 border-emerald-500">
+                    <h3 class="font-bold text-gray-700 mb-4 flex items-center"><i class="ph ph-ranking text-xl mr-2"></i> 주요 수원국 (Top 3)</h3>
+                    
+                    <!-- 1. Korea -->
+                    <div class="mb-4 hover-card p-3 rounded-lg bg-slate-50 cursor-default">
+                        <div class="flex justify-between mb-1">
+                            <span class="font-bold text-emerald-700">1위. 한국 (Korea)</span>
+                            <span class="font-bold text-gray-800">28.8%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-emerald-500 h-2.5 rounded-full" style="width: 28.8%"></div>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-1">2,557 백만 달러</p>
+                    </div>
+
+                    <!-- 2. Taiwan -->
+                    <div class="mb-4 hover-card p-3 rounded-lg bg-slate-50 cursor-default">
+                        <div class="flex justify-between mb-1">
+                            <span class="font-bold text-blue-700">2위. 대만 (Taiwan)</span>
+                            <span class="font-bold text-gray-800">18.1%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-blue-500 h-2.5 rounded-full" style="width: 18.1%"></div>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-1">1,604 백만 달러</p>
+                    </div>
+
+                    <!-- 3. Vietnam -->
+                    <div class="mb-2 hover-card p-3 rounded-lg bg-slate-50 cursor-default">
+                        <div class="flex justify-between mb-1">
+                            <span class="font-bold text-red-700">3위. 베트남 (Vietnam)</span>
+                            <span class="font-bold text-gray-800">12.2%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-red-500 h-2.5 rounded-full" style="width: 12.2%"></div>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-1">1,081 백만 달러</p>
+                    </div>
+                </div>
+
+                <!-- Analysis Card -->
+                <div class="space-y-6">
+                    <div class="bg-slate-800 text-white p-6 rounded-2xl shadow-lg hover-card">
+                        <h3 class="font-bold text-lg mb-2 text-emerald-400">원조의 성격 분석</h3>
+                        <ul class="space-y-3 text-sm text-gray-300">
+                            <li class="flex items-start">
+                                <i class="ph ph-check-circle text-emerald-500 mr-2 mt-0.5"></i>
+                                <span><strong>상호방위협정 체결국</strong>에 집중 (한국, 대만, 베트남, 필리핀 등)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="ph ph-check-circle text-emerald-500 mr-2 mt-0.5"></i>
+                                <span>전체 원조액 중 <strong>43%가 군사원조</strong></span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="ph ph-check-circle text-emerald-500 mr-2 mt-0.5"></i>
+                                <span>나머지 경제원조도 대부분 <strong>방위지원(Defense Support)</strong> 성격</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100">
+                        <h4 class="font-bold text-gray-700 mb-2">💡 핵심 시사점</h4>
+                        <p class="text-sm text-gray-600 leading-relaxed">
+                            이 지역에 대한 원조는 순수한 경제적 목적보다는 <strong>'반공 국가 육성'</strong>이라는 <strong class="text-red-500">군사적·정치적 목적</strong>에 중점을 두었습니다. (MSA 원조 성격 반영)
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW 3: 결론 및 요약 -->
+        <div id="view3" class="view-section hidden animate-fade-in">
+            <div class="mb-8 text-center">
+                <h2 class="text-2xl font-bold text-gray-800">🎯 결론: 미국 원조의 변천과 목적</h2>
+                <p class="text-gray-500 mt-2 text-sm">시기별 변모에도 불구하고 변하지 않는 기본 목적이 있습니다.</p>
+            </div>
+
+            <!-- Timeline Summary -->
+            <div class="space-y-4 mb-8">
+                <div class="flex items-center bg-white p-4 rounded-xl shadow-sm border-l-4 border-indigo-500">
+                    <div class="w-20 font-bold text-indigo-600 text-sm">종전 직후</div>
+                    <div class="flex-1 pl-4 border-l border-gray-100">
+                        <p class="font-bold text-gray-800">구호 및 경제 부흥</p>
+                        <p class="text-xs text-gray-500">유럽 경제/군사 잠재력 회복, 시장 확보</p>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center"><i class="ph ph-arrow-down text-gray-300"></i></div>
+                
+                <div class="flex items-center bg-white p-4 rounded-xl shadow-sm border-l-4 border-red-500">
+                    <div class="w-20 font-bold text-red-600 text-sm">1950년대</div>
+                    <div class="flex-1 pl-4 border-l border-gray-100">
+                        <p class="font-bold text-gray-800">군사전략적 관점 (아시아/아프리카)</p>
+                        <p class="text-xs text-gray-500">한국전쟁 이후 군사/방위 원조 중심, 식민지 해체 지역 포섭</p>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center"><i class="ph ph-arrow-down text-gray-300"></i></div>
+
+                <div class="flex items-center bg-white p-4 rounded-xl shadow-sm border-l-4 border-blue-500">
+                    <div class="w-20 font-bold text-blue-600 text-sm">1961년~</div>
+                    <div class="flex-1 pl-4 border-l border-gray-100">
+                        <p class="font-bold text-gray-800">개발 차관 (경제원조)</p>
+                        <p class="text-xs text-gray-500">AID 설립, 차관 형식의 개발 원조로 전환</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Final Conclusion Box -->
+            <div class="bg-gradient-to-r from-slate-800 to-slate-900 p-8 rounded-2xl text-white text-center shadow-xl">
+                <i class="ph ph-quotes text-4xl text-slate-600 mb-2 inline-block"></i>
+                <h3 class="text-xl font-bold mb-3 text-emerald-400">불변의 기본 목적</h3>
+                <p class="text-base leading-relaxed opacity-90">
+                    "전후 세계적 규모로 확대되는 <span class="text-red-400 font-bold">사회주의 체제</span>에 대항하여,<br>
+                    <span class="text-blue-400 font-bold">국제적 군사·경제 체제를 확립</span>하는 것."
+                </p>
+            </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <section class="mt-12 pt-6 border-t border-gray-200 text-center flex justify-center space-x-4">
+            <!-- Previous Button -->
+            <a href="two-one.html" class="inline-flex items-center justify-center px-6 py-3 text-base font-bold text-slate-600 bg-white border border-slate-200 rounded-full shadow-sm hover:bg-slate-50 transition-all duration-300">
+                <i class="ph ph-arrow-left mr-2"></i>
+                이전 (2장 1절)
+            </a>
+        </section>
+
+    </main>
+
+    <script>
+        function showView(viewId) {
+            // Hide all views
+            document.querySelectorAll('.view-section').forEach(el => el.classList.add('hidden'));
+            
+            // Show selected view
+            const target = document.getElementById(viewId);
+            target.classList.remove('hidden');
+            
+            // Animation reset
+            target.style.opacity = '0';
+            target.style.transform = 'translateY(10px)';
+            setTimeout(() => {
+                target.style.transition = 'all 0.4s ease-out';
+                target.style.opacity = '1';
+                target.style.transform = 'translateY(0)';
+            }, 10);
+
+            // Update Nav Pills
+            document.querySelectorAll('.nav-pill').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('btn-' + viewId).classList.add('active');
+        }
+    </script>
+</body>
+</html>
