@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>대외원조의 변화양상과 지역별 특징</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: #f8fafc; /* Slate-50 */
+            color: #334155; /* Slate-700 */
+        }
+
+        /* Gradient Text */
+        .text-gradient {
+            background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%); /* Emerald to Blue */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Custom Table Styles */
+        .pretty-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+        .pretty-table th {
+            background-color: #ecfdf5; /* Emerald-50 */
+            color: #059669; /* Emerald-600 */
+            font-weight: 800;
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 2px solid #a7f3d0;
+        }
+        .pretty-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #f1f5f9;
+            color: #475569;
+        }
+        .pretty-table tr:last-child td {
+            border-bottom: none;
+        }
+        .pretty-table tr:hover td {
+            background-color: #fafafa;
+        }
+
+        /* Navigation Pill Styles */
+        .nav-pill {
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            transition: all 0.3s;
+            color: #64748b;
+            cursor: pointer;
+        }
+        .nav-pill.active {
+            background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
+            color: white;
+            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Animations */
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Interactive Card Styles */
+        .expand-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .expand-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .expand-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out, margin-top 0.3s ease;
+            opacity: 0;
+        }
+        .active-card .expand-content {
+            max-height: 500px; /* Increased for more content */
+            opacity: 1;
+            margin-top: 1rem;
+        }
+        .active-card {
+            border-color: #10b981;
+            background-color: #f0fdf4; /* Emerald-50 */
+        }
+        .chevron {
+            transition: transform 0.3s ease;
+        }
+        .active-card .chevron {
+            transform: rotate(180deg);
+        }
+
+        /* Timeline Styles */
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+            padding-bottom: 2rem;
+            border-left: 2px solid #e2e8f0;
+        }
+        .timeline-item:last-child {
+            border-left: none;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.6rem;
+            top: 0;
+            width: 1.2rem;
+            height: 1.2rem;
+            border-radius: 50%;
+            background: white;
+            border: 4px solid #10b981;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen bg-slate-50">
+
+    <!-- Header -->
+    <header class="pt-16 pb-10 px-6 text-center bg-white shadow-sm">
+        <div class="max-w-4xl mx-auto">
+            <span class="inline-block py-1 px-3 rounded-full bg-emerald-100 text-emerald-600 text-xs font-bold tracking-wide mb-4">US AID HISTORY</span>
+            <h1 class="text-3xl md:text-4xl font-extrabold mb-4 tracking-tight text-gray-900 leading-tight">
+                대외원조의 변화양상과 <span class="text-gradient">지역별 특징</span>
+            </h1>
+            <p class="text-lg text-gray-500 font-medium">점령지구 구호부터 상호안전보장계획까지</p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-slate-50/90 backdrop-blur-md py-6">
+        <div class="flex justify-center gap-2 md:gap-4 overflow-x-auto px-4">
+            <button onclick="showView('view1')" id="btn-view1" class="nav-pill active whitespace-nowrap">1. 점령지역 구호원조</button>
+            <button onclick="showView('view2')" id="btn-view2" class="nav-pill whitespace-nowrap">2. 유럽부흥계획</button>
+            <button onclick="showView('view3')" id="btn-view3" class="nav-pill whitespace-nowrap">3. 상호안전보장</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-4xl mx-auto w-full px-6 pb-20">
+
+        <!-- VIEW 1: 점령지역 구호원조 (1945~1948) -->
+        <div id="view1" class="view-section animate-fade-in">
+            <div class="mb-8 text-center">
+                <h2 class="text-2xl font-bold text-gray-800">🚑 점령지역 구호원조 (1945~1948)</h2>
+                <p class="text-gray-500 mt-2 text-sm">제2차 세계대전 직후, 미 육군부 예산으로 시작된 초기 원조입니다.</p>
+            </div>
+
+            <!-- Comparison Table -->
+            <div class="overflow-x-auto mb-8">
+                <table class="pretty-table">
+                    <thead>
+                        <tr>
+                            <th class="w-1/4">구분</th>
+                            <th class="w-1/4">명칭</th>
+                            <th class="w-1/2">내용 및 특징</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-bold text-emerald-800">GARIOA</td>
+                            <td>점령지구<br>행정구호원조</td>
+                            <td class="text-sm">
+                                <span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded text-xs font-bold">긴급 구호</span><br>
+                                식량 결핍, 질병 구호 (식량, 의류, 의약품 등)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold text-emerald-800">EROA</td>
+                            <td>점령지구<br>경제부흥원조</td>
+                            <td class="text-sm">
+                                <span class="bg-blue-100 text-blue-800 px-2 py-0.5 rounded text-xs font-bold">경제 부흥</span><br>
+                                산업 생산을 위한 원자재 제공 (중유, 철광석, 면화)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold text-emerald-800">UNRRA</td>
+                            <td>연합국<br>구호부흥기관</td>
+                            <td class="text-sm">
+                                <span class="bg-gray-100 text-gray-800 px-2 py-0.5 rounded text-xs font-bold">패전국/해방지구</span><br>
+                                미국이 자금의 73% 지원. <span class="text-red-500 text-xs">(소련권 지원에 사용되자 철폐)</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="text-xs text-gray-400 mt-2 text-right">* 1949년부터는 GARIOA 단일 예산으로 통합 처리됨.</p>
+            </div>
+        </div>
+
+        <!-- VIEW 2: 유럽부흥계획원조 (1948~1950) -->
+        <div id="view2" class="view-section hidden animate-fade-in">
+            <div class="mb-8 text-center">
+                <h2 class="text-2xl font-bold text-gray-800">🏗️ 유럽부흥계획 (Marshall Plan)</h2>
+                <p class="text-gray-500 mt-2 text-sm">소련의 팽창에 맞선 봉쇄정책의 경제적 실현 수단입니다.</p>
+            </div>
+
+            <!-- Conflict Card: Dept of Defense vs State Dept -->
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <!-- Defense Dept -->
+                <div class="bg-white p-6 rounded-2xl shadow-md border-t-4 border-gray-500">
+                    <h3 class="text-lg font-bold text-gray-700 mb-3 flex items-center">
+                        <i class="ph ph-sword text-2xl mr-2"></i> 국방부 입장
+                    </h3>
+                    <ul class="list-disc list-inside text-sm text-gray-600 space-y-2">
+                        <li>소련의 위협에 직접 대항해야 한다.</li>
+                        <li>재래식 무기와 병력 증강 필요.</li>
+                        <li><strong>군사 원조</strong> 제공 주장.</li>
+                    </ul>
+                </div>
+
+                <!-- State Dept -->
+                <div class="bg-white p-6 rounded-2xl shadow-md border-t-4 border-blue-500 ring-2 ring-blue-100">
+                    <h3 class="text-lg font-bold text-blue-600 mb-3 flex items-center">
+                        <i class="ph ph-handshake text-2xl mr-2"></i> 국무부 입장 (채택 ✅)
+                    </h3>
+                    <ul class="list-disc list-inside text-sm text-gray-600 space-y-2">
+                        <li>경제적 원조를 통한 위기 타개.</li>
+                        <li>국가 재건과 부흥으로 <strong>힘의 공백</strong> 메우기.</li>
+                        <li><strong>트루만 행정부 결정:</strong> 경제 부흥이 미국 경제에도 도움 & 군사비 부담 경감.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Execution Process -->
+            <div class="bg-slate-100 p-6 rounded-2xl">
+                <h3 class="font-bold text-gray-800 mb-4 text-center">실행 체계 (Cooperation)</h3>
+                <div class="flex flex-col md:flex-row items-center justify-center gap-4">
+                    <div class="bg-white px-6 py-3 rounded-xl shadow text-center">
+                        <div class="text-blue-600 font-bold text-lg">미국</div>
+                        <div class="text-xs text-gray-500">경제협조처 (ECA)</div>
+                    </div>
+                    <i class="ph ph-arrows-left-right text-2xl text-gray-400"></i>
+                    <div class="bg-white px-6 py-3 rounded-xl shadow text-center">
+                        <div class="text-emerald-600 font-bold text-lg">유럽</div>
+                        <div class="text-xs text-gray-500">유럽경제협조기구 (OEEC)</div>
+                    </div>
+                </div>
+                <p class="text-center text-xs text-gray-500 mt-3">공동 계획 수립 및 원조 사용 조정</p>
+            </div>
+        </div>
+
+        <!-- VIEW 3: 상호안전보장계획 (1951~60) -->
+        <div id="view3" class="view-section hidden animate-fade-in">
+            <div class="mb-8 text-center">
+                <h2 class="text-2xl font-bold text-gray-800">🛡️ 상호안전보장계획 (1951~1960)</h2>
+                <p class="text-gray-500 mt-2 text-sm">한국전쟁을 계기로 <strong>군사원조 중심</strong>으로 전환된 시기입니다.</p>
+            </div>
+
+            <div class="mb-8 bg-red-50 border border-red-200 p-4 rounded-xl text-center">
+                <strong class="text-red-700">배경: 한국전쟁 발발</strong><br>
+                <span class="text-sm text-red-600">경제원조 중심 → <strong>군사원조 중심</strong>으로 급격한 변화</span>
+            </div>
+
+            <!-- Timeline of Organizations -->
+            <div class="bg-white p-8 rounded-2xl shadow-lg mb-8">
+                <h3 class="font-bold text-gray-800 mb-6 border-b pb-2">🏛️ 원조 기구의 변천사</h3>
+                
+                <div class="pl-2">
+                    <!-- Step 1 -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-bold text-gray-700">1951년: 상호안전보장국 (MSA) 설립</h4>
+                        <p class="text-sm text-gray-600 mt-1">ECA 해체 후 설립. 유럽 및 아시아 원조 관장.</p>
+                        <p class="text-xs text-red-500 mt-1">* 한계: 군사(국방부), 경제(MSA), 기술(국무부) 분리 운영으로 혼선.</p>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-bold text-gray-700">1953년: 대외활동본부 (FOA) 설립</h4>
+                        <p class="text-sm text-gray-600 mt-1">원조 운영의 일원화 시도. 그러나 국무부와 조정 실패.</p>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-bold text-gray-700">1955년: 국제협조처 (ICA) 설립</h4>
+                        <p class="text-sm text-gray-600 mt-1">국무부 내 설치. 군사원조는 국방부, 비군사원조는 ICA가 담당.</p>
+                        <div class="bg-gray-50 p-2 rounded mt-2 text-xs">
+                            <strong>개발차관기금 (DLF):</strong> 1957년 방위지원에서 분리. 저개발국 경제개발 목적 차관 제공.
+                        </div>
+                    </div>
+                    
+                    <!-- Step 4 -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot" style="border-color: #3b82f6;"></div>
+                        <h4 class="font-bold text-blue-600">1961년: AID와 IPS 체제 (케네디 행정부)</h4>
+                        <p class="text-sm text-gray-600 mt-1">경제원조(AID)와 군사원조(IPS)의 명확한 법적/기구적 분리 완성.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Info Card -->
+            <div class="expand-card bg-white p-5 rounded-xl shadow-md border-l-8 border-emerald-500" onclick="toggleCard(this)">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <i class="ph ph-info text-2xl text-emerald-500 mr-3"></i>
+                        <h3 class="font-bold text-lg text-gray-800">상호방위원조법의 특징</h3>
+                    </div>
+                    <svg class="chevron w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </div>
+                <div class="expand-content bg-white mt-0">
+                    <div class="p-4 bg-emerald-50 rounded-lg text-sm text-emerald-800 leading-relaxed mt-3">
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>NATO 외에 <strong>한국, 필리핀, 중국</strong> 등 아시아 지역 군사원조 시작.</li>
+                            <li>경제원조도 '방위지원'이 중심을 이루어 <strong>군사원조적 성격</strong>이 강함.</li>
+                            <li>미국 상품 구매 정책 강화로 달러 방위에 기여하는 방향으로 전개됨(1960년대).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Previous Button for Navigation -->
+        <section class="mt-12 pt-6 border-t border-gray-200 text-center">
+            <a href="aid_policy_analysis.html" class="inline-block px-10 py-4 text-lg font-extrabold rounded-full transition duration-300 transform hover:scale-105" style="background: linear-gradient(135deg, #64748b 0%, #475569 100%); color: white; box-shadow: 0 4px 10px rgba(100, 116, 139, 0.4);">
+                <i class="ph ph-arrow-left text-xl mr-2"></i>
+                이전 페이지
+            </a>
+        </section>
+
+    </main>
+
+    <script>
+        function showView(viewId) {
+            // Hide all views
+            document.querySelectorAll('.view-section').forEach(el => el.classList.add('hidden'));
+            
+            // Show selected view
+            const target = document.getElementById(viewId);
+            target.classList.remove('hidden');
+            
+            // Animation reset
+            target.style.opacity = '0';
+            target.style.transform = 'translateY(10px)';
+            setTimeout(() => {
+                target.style.transition = 'all 0.4s ease-out';
+                target.style.opacity = '1';
+                target.style.transform = 'translateY(0)';
+            }, 10);
+
+            // Update Nav Pills
+            document.querySelectorAll('.nav-pill').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('btn-' + viewId).classList.add('active');
+        }
+
+        function toggleCard(card) {
+            if (card.classList.contains('active-card')) {
+                card.classList.remove('active-card');
+            } else {
+                // Accordion behavior
+                document.querySelectorAll('.expand-card').forEach(c => c.classList.remove('active-card'));
+                card.classList.add('active-card');
+            }
+        }
+    </script>
+</body>
+</html>
