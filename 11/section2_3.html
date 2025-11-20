@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>대한원조의 추이와 규모</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: #f8fafc; /* Slate-50 */
+            color: #334155; /* Slate-700 */
+        }
+
+        /* Gradient Text */
+        .text-gradient {
+            background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%); /* Amber to Orange */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Navigation Pill Styles */
+        .nav-pill {
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            transition: all 0.3s;
+            color: #64748b;
+            cursor: pointer;
+        }
+        .nav-pill.active {
+            background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
+            color: white;
+            box-shadow: 0 4px 10px rgba(249, 115, 22, 0.4);
+        }
+
+        /* Animations */
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+            opacity: 0;
+            transform: translateY(15px);
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Timeline Styles */
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+            padding-bottom: 2rem;
+            border-left: 2px solid #fed7aa; /* Orange-200 */
+        }
+        .timeline-item:last-child {
+            border-left: none;
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.6rem;
+            top: 0;
+            width: 1.2rem;
+            height: 1.2rem;
+            border-radius: 50%;
+            background: white;
+            border: 4px solid #f97316; /* Orange-500 */
+        }
+
+        /* Chart Bars Animation */
+        .bar-fill {
+            width: 0%;
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            white-space: nowrap;
+        }
+        .bar-aid { background-color: #f97316; color: white; } /* Aid/Counterpart Fund */
+        .bar-tax { background-color: #94a3b8; color: white; } /* Tax/Other */
+
+        /* Interactive Card */
+        .expand-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .expand-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .expand-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out, margin-top 0.3s ease;
+            opacity: 0;
+        }
+        .active-card .expand-content {
+            max-height: 400px; /* Increased max height */
+            opacity: 1;
+            margin-top: 1rem;
+        }
+        .active-card {
+            border-color: #f97316;
+            background-color: #fff7ed; /* Orange-50 */
+        }
+        .chevron {
+            transition: transform 0.3s ease;
+        }
+        .active-card .chevron {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen bg-slate-50">
+
+    <!-- Header -->
+    <header class="pt-16 pb-10 px-6 text-center bg-white shadow-sm">
+        <div class="max-w-4xl mx-auto">
+            <span class="inline-block py-1 px-3 rounded-full bg-orange-100 text-orange-600 text-xs font-bold tracking-wide mb-4">KOREA AID ANALYSIS</span>
+            <h1 class="text-3xl md:text-4xl font-extrabold mb-4 tracking-tight text-gray-900 leading-tight">
+                대한원조의 <span class="text-gradient">추이와 규모</span>
+            </h1>
+            <p class="text-lg text-gray-500 font-medium">해방 직후부터 1960년대까지의 원조 흐름과 경제적 영향</p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-slate-50/90 backdrop-blur-md py-6">
+        <div class="flex justify-center gap-2 md:gap-4 overflow-x-auto px-4">
+            <button onclick="showView('view1')" id="btn-view1" class="nav-pill active whitespace-nowrap">1. 시기별 추이 (1945~)</button>
+            <button onclick="showView('view2')" id="btn-view2" class="nav-pill whitespace-nowrap">2. 원조 기구 및 유형</button>
+            <button onclick="showView('view3')" id="btn-view3" class="nav-pill whitespace-nowrap">3. 경제적 영향 (데이터)</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-4xl mx-auto w-full px-6 pb-20">
+
+        <!-- VIEW 1: 시기별 추이 (Timeline) -->
+        <div id="view1" class="view-section animate-fade-in">
+            <div class="mb-8 text-center">
+                <h2 class="text-2xl font-bold text-gray-800">⏳ 대한원조의 전개 과정</h2>
+                <p class="text-gray-500 mt-2 text-sm">해방부터 한국전쟁까지 원조의 성격 변화를 확인하세요.</p>
+            </div>
+
+            <div class="bg-white p-8 rounded-2xl shadow-lg border border-orange-100">
+                <!-- Step 1: GARIOA -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="flex items-center mb-1">
+                        <span class="bg-orange-100 text-orange-700 text-xs font-bold px-2 py-0.5 rounded mr-2">1945.9 ~</span>
+                        <h4 class="font-bold text-gray-800">점령지역 행정구호원조 (GARIOA)</h4>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-1">
+                        <strong>주관:</strong> 미 육군부 (미군정) / <strong>내용:</strong> 식료품, 구호물자 제공.<br>
+                        <strong>결과:</strong> 인플레 억제, 물자난 완화 등 <span class="text-orange-600 font-bold">정치·경제적 안정 지원</span>.
+                    </p>
+                </div>
+
+                <!-- Step 1.5: 한미 원조협정 체결 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot" style="border-color: #3b82f6;"></div>
+                    <div class="flex items-center mb-1">
+                        <span class="bg-blue-100 text-blue-700 text-xs font-bold px-2 py-0.5 rounded mr-2">1948.12.10</span>
+                        <h4 class="font-bold text-blue-700">한미 원조협정 체결</h4>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-1 bg-blue-50 p-2 rounded border-l-4 border-blue-400">
+                        "대한민국과 미합중국간의 원조협정" 체결로 향후 원조의 법적 근거 마련.
+                    </p>
+                </div>
+
+                <!-- Step 2: ECA & 상호방위 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="flex items-center mb-1">
+                        <span class="bg-orange-100 text-orange-700 text-xs font-bold px-2 py-0.5 rounded mr-2">1949 ~</span>
+                        <h4 class="font-bold text-gray-800">ECA 원조 및 상호방위원조</h4>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-1">
+                        원조 책임이 육군부에서 <strong>경제협조처(ECA)</strong>로 이관됨.<br>
+                        1950년 1월 상호방위원조협정 체결로 <strong>경제+군사</strong> 양 부문에 걸친 본격 원조 개시.
+                    </p>
+                </div>
+
+                <!-- Step 3: 한국전쟁 발발 (MSA 내용 충실 반영) -->
+                <div class="timeline-item">
+                    <div class="timeline-dot border-red-500"></div>
+                    <div class="flex items-center mb-1">
+                        <span class="bg-red-100 text-red-700 text-xs font-bold px-2 py-0.5 rounded mr-2">1950.6 ~</span>
+                        <h4 class="font-bold text-red-700">한국전쟁 발발: MSA 체제 전환</h4>
+                    </div>
+                    
+                    <p class="text-sm text-gray-600 mt-1">
+                        ECA 원조 종료 → <span class="font-bold text-gray-700">SEC 원조</span>로 이관(유엔군 사령부 관할, 1953.5월까지 지속).
+                    </p>
+                    
+                    <div class="bg-red-50 p-3 rounded-lg mt-2 border-l-4 border-red-400">
+                        <strong class="text-red-700 block mb-1">MSA법 (1951.10.10 제정) 주요 내용:</strong>
+                        <ul class="list-disc list-inside text-xs text-gray-700 ml-2 space-y-0.5">
+                            <li>원조 성격이 경제적에서 <span class="font-bold text-red-900">군사적 성격</span>으로 전환.</li>
+                            <li>MSA는 경제/군사/기술 원조를 '상호안전보장' 목적 하에 통합 조정.</li>
+                            <li><span class="font-bold text-gray-900">상호안전보장국(MSA)</span> 설치.</li>
+                            <li>전쟁 지속으로 대한원조는 실질적으로 <span class="font-bold text-red-900">군사원조에 국한</span>되었으며, 구호원조는 유엔 원조로 제공됨.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW 2: 원조 기구 및 유형 (Cards) -->
+        <div id="view2" class="view-section hidden animate-fade-in">
+            <div class="mb-8 text-center">
+                <h2 class="text-2xl font-bold text-gray-800">🏛️ 주요 원조 기구 및 유형</h2>
+                <p class="text-gray-500 mt-2 text-sm">전쟁 중/후 다양한 원조 기구들의 역할과 특징입니다.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-4">
+                
+                <!-- CRIK -->
+                <div class="expand-card bg-white p-5 rounded-xl shadow-md border-l-4 border-blue-400" onclick="toggleCard(this)">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-gray-800">CRIK 원조</h3>
+                        <i class="ph ph-caret-down chevron text-gray-400"></i>
+                    </div>
+                    <p class="text-xs text-blue-500 mt-1 font-bold">민간구호 성격</p>
+                    <div class="expand-content bg-white mt-0">
+                        <div class="p-3 bg-blue-50 rounded-lg text-sm text-gray-600 mt-3 leading-relaxed">
+                            <ul class="list-disc list-inside text-xs text-gray-700 ml-2 space-y-0.5">
+                                <li><strong>내용:</strong> 미 육군부 예산에서 군작전 수반 민간구호 자금 지출 및 민간단체/개인 증여 물자 도입.</li>
+                                <li><strong>관리:</strong> 1950년 12월 유엔군 사령부 산하 <span class="font-bold text-gray-900">UNCACK</span>으로 이관. (1953년 <span class="font-bold text-gray-900">KCAC</span>로 개칭/축소됨)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- UNKRA -->
+                <div class="expand-card bg-white p-5 rounded-xl shadow-md border-l-4 border-emerald-400" onclick="toggleCard(this)">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-gray-800">UNKRA (유엔한국재건단)</h3>
+                        <i class="ph ph-caret-down chevron text-gray-400"></i>
+                    </div>
+                    <p class="text-xs text-emerald-500 mt-1 font-bold">재건사업 성격</p>
+                    <div class="expand-content bg-white mt-0">
+                        <div class="p-3 bg-emerald-50 rounded-lg text-sm text-gray-600 mt-3 leading-relaxed">
+                            전쟁 중에는 UNCACK의 활동을 도와 긴급구호사업을 전개했으며, <span class="font-bold text-gray-900">본격적인 활동은 휴전 이후</span> 개시되었습니다.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FOA/ICA -->
+                <div class="expand-card bg-white p-5 rounded-xl shadow-md border-l-4 border-orange-500" onclick="toggleCard(this)">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-gray-800">FOA / ICA (미국 원조기구)</h3>
+                        <i class="ph ph-caret-down chevron text-gray-400"></i>
+                    </div>
+                    <p class="text-xs text-orange-500 mt-1 font-bold">대외 원조기구 개편</p>
+                    <div class="expand-content bg-white mt-0">
+                        <div class="p-3 bg-orange-50 rounded-lg text-sm text-gray-600 mt-3 leading-relaxed">
+                            <ul class="list-disc list-inside space-y-1">
+                                <li><span class="font-bold text-gray-900">FOA (1953.8):</span> MSA → FOA로 개편. 육군부 예산 중 2억불을 대한원조자금에 충당하며 본격 도입.</li>
+                                <li><span class="font-bold text-gray-900">ICA (1955):</span> FOA 해지 후 국무부 내 신설.</li>
+                                <li>ICA 원조는 1959년 주한미국경제협조처(USOM)으로 변경되어 <span class="font-bold text-gray-900">미국 대사관 산하로 편입</span>됨.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- OEC (Separated for clarity) -->
+                <div class="expand-card bg-white p-5 rounded-xl shadow-md border-l-4 border-fuchsia-400 active-card" onclick="toggleCard(this)">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-gray-800">OEC (경제조정관실)</h3>
+                        <i class="ph ph-caret-down chevron text-gray-400"></i>
+                    </div>
+                    <p class="text-xs text-fuchsia-500 mt-1 font-bold">원조 관리 및 조정</p>
+                    <div class="expand-content bg-white mt-0">
+                        <div class="p-3 bg-fuchsia-50 rounded-lg text-sm text-gray-600 mt-3 leading-relaxed">
+                            <ul class="list-disc list-inside space-y-1">
+                                <li><strong>설립:</strong> 1953년 8월, <span class="font-bold text-gray-900">유엔군 총사령부 휘하</span>에 설치됨.</li>
+                                <li><strong>역할:</strong> CRIK, UNKRA, FOA 원조 등 당시 모든 원조를 관리 및 조정.</li>
+                                <li><strong>변화:</strong> 1955년 ICA 변경 후 ICA 본부 지시를 받음. 1959년 USOM으로 변경.</li>
+                                <li><strong>소속:</strong> <span class="font-bold text-red-600">유엔군 총사령부 휘하 → 미국 대사관 휘하</span>로 변경됨.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PL 480 -->
+                <div class="expand-card bg-white p-5 rounded-xl shadow-md border-l-4 border-red-500" onclick="toggleCard(this)">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-gray-800">PL 480호</h3>
+                        <i class="ph ph-caret-down chevron text-gray-400"></i>
+                    </div>
+                    <p class="text-xs text-red-500 mt-1 font-bold">가장 군사적 성격 강함</p>
+                    <div class="expand-content bg-white mt-0">
+                        <div class="p-3 bg-red-50 rounded-lg text-sm text-gray-600 mt-3 leading-relaxed">
+                            <ul class="list-disc list-inside space-y-1">
+                                <li><strong>내용:</strong> 미 잉여농산물(소맥, 원면 등) 원조 (1956년 본격화).</li>
+                                <li><strong>목적:</strong> 잉여농산물 처리 + 대외 군사물자 판매 주목적.</li>
+                                <li><strong>특징:</strong> 판매 대금의 <strong>80~90%가 국방비로 전입</strong>되어 순수 경제원조 중 가장 군사적 성격이 강했음.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW 3: 경제적 영향 (Data Charts) -->
+        <div id="view3" class="view-section hidden animate-fade-in">
+            <div class="mb-8 text-center">
+                <h2 class="text-2xl font-bold text-gray-800">📊 원조의 경제적 비중과 영향</h2>
+                <p class="text-gray-500 mt-2 text-sm">국내 경제에서 원조가 차지했던 압도적인 비중을 확인하세요.</p>
+            </div>
+
+            <!-- Stat Highlight -->
+            <div class="flex justify-center gap-4 mb-8">
+                <div class="bg-white p-4 rounded-xl shadow-sm text-center border border-orange-200 w-1/2">
+                    <p class="text-xs text-gray-500">연평균 GNP 비중</p>
+                    <p class="text-2xl font-extrabold text-orange-600">12%</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm text-center border border-orange-200 w-1/2">
+                    <p class="text-xs text-gray-500">총 수입 중 비중</p>
+                    <p class="text-2xl font-extrabold text-orange-600">73%</p>
+                </div>
+            </div>
+
+            <!-- Revenue Chart (Table 4 Data) -->
+            <div class="bg-white p-6 rounded-2xl shadow-lg border border-slate-100 mb-6">
+                <h3 class="font-bold text-gray-700 mb-4 flex items-center"><i class="ph ph-chart-bar text-xl mr-2"></i> 정부 세입 중 대충자금(원조) 비중</h3>
+                <div class="space-y-4">
+                    
+                    <!-- 1953 -->
+                    <div>
+                        <div class="flex justify-between text-xs mb-1"><span>1953년</span> <span class="font-bold">17.1%</span></div>
+                        <div class="w-full h-6 bg-gray-200 rounded-full overflow-hidden flex">
+                            <div class="bar-fill bar-aid text-xs" style="width: 17.1%;">17.1%</div>
+                            <div class="bar-fill bar-tax text-xs" style="width: 82.9%;">기타 82.9%</div>
+                        </div>
+                    </div>
+
+                    <!-- 1955 -->
+                    <div>
+                        <div class="flex justify-between text-xs mb-1"><span>1955년</span> <span class="font-bold">46.5%</span></div>
+                        <div class="w-full h-6 bg-gray-200 rounded-full overflow-hidden flex">
+                            <div class="bar-fill bar-aid text-xs" style="width: 46.5%;">46.5%</div>
+                            <div class="bar-fill bar-tax text-xs" style="width: 53.5%;">53.5%</div>
+                        </div>
+                    </div>
+
+                    <!-- 1957 (Peak) -->
+                    <div>
+                        <div class="flex justify-between text-xs mb-1"><span class="font-bold text-orange-600">1957년 (최대)</span> <span class="font-bold text-orange-600">54.1%</span></div>
+                        <div class="w-full h-6 bg-gray-200 rounded-full overflow-hidden flex ring-2 ring-orange-200">
+                            <div class="bar-fill bar-aid text-xs font-bold" style="width: 54.1%;">54.1% (대충자금)</div>
+                            <div class="bar-fill bar-tax text-xs" style="width: 45.9%;">45.9%</div>
+                        </div>
+                    </div>
+
+                    <!-- 1958 -->
+                    <div>
+                        <div class="flex justify-between text-xs mb-1"><span>1958년</span> <span class="font-bold">54.0%</span></div>
+                        <div class="w-full h-6 bg-gray-200 rounded-full overflow-hidden flex">
+                            <div class="bar-fill bar-aid text-xs" style="width: 54.0%;">54.0%</div>
+                            <div class="bar-fill bar-tax text-xs" style="width: 46.0%;">46.0%</div>
+                        </div>
+                    </div>
+
+                    <!-- 1960 -->
+                    <div>
+                        <div class="flex justify-between text-xs mb-1"><span>1960년</span> <span class="font-bold">35.2%</span></div>
+                        <div class="w-full h-6 bg-gray-200 rounded-full overflow-hidden flex">
+                            <div class="bar-fill bar-aid text-xs" style="width: 35.2%;">35.2%</div>
+                            <div class="bar-fill bar-tax text-xs" style="width: 64.8%;">64.8%</div>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-400 mt-4 text-center">
+                    * 대충자금: 원조물자 판매대금으로 조성된 자금 (국내 재원보다 비중이 컸음)
+                </p>
+            </div>
+
+            <!-- Impact Description -->
+            <div class="bg-slate-100 p-5 rounded-xl text-sm text-gray-600 leading-relaxed">
+                <strong class="block text-gray-800 mb-1">미국의 개입:</strong> 원조 비중이 증가함에 따라 미국은 원조의 효율적 사용을 명분으로 한국 정부의 <strong>경제 정책 및 재정 운용 전반</strong>에 강력한 영향력을 행사했습니다.
+            </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <section class="mt-12 pt-6 border-t border-gray-200 text-center flex justify-center space-x-4">
+            <!-- Previous Button -->
+            <a href="section2_2.html" class="inline-flex items-center justify-center px-8 py-3 text-lg font-bold text-white transition-all duration-300 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1" style="background: linear-gradient(135deg, #64748b 0%, #475569 100%);">
+                <i class="ph ph-arrow-left text-xl mr-2"></i>
+                이전 페이지
+            </a>
+        </section>
+
+    </main>
+
+    <script>
+        function showView(viewId) {
+            // Hide all views
+            document.querySelectorAll('.view-section').forEach(el => el.classList.add('hidden'));
+            
+            // Show selected view
+            const target = document.getElementById(viewId);
+            target.classList.remove('hidden');
+            
+            // Animation reset
+            target.style.opacity = '0';
+            target.style.transform = 'translateY(10px)';
+            setTimeout(() => {
+                target.style.transition = 'all 0.4s ease-out';
+                target.style.opacity = '1';
+                target.style.transform = 'translateY(0)';
+            }, 10);
+
+            // Update Nav Pills
+            document.querySelectorAll('.nav-pill').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('btn-' + viewId).classList.add('active');
+            
+            // Re-animate bars if view 3 is opened
+            if(viewId === 'view3') {
+                animateBars();
+            }
+        }
+
+        function toggleCard(card) {
+            if (card.classList.contains('active-card')) {
+                card.classList.remove('active-card');
+            } else {
+                // Accordion behavior
+                document.querySelectorAll('.expand-card').forEach(c => c.classList.remove('active-card'));
+                card.classList.add('active-card');
+            }
+        }
+
+        function animateBars() {
+            document.querySelectorAll('.bar-fill').forEach(bar => {
+                // Get target width from inline style
+                const widthStyle = bar.style.width;
+                // Reset to 0
+                bar.style.width = '0%';
+                // Force reflow/repaint
+                void bar.offsetWidth; 
+                // Set to target
+                setTimeout(() => { bar.style.width = widthStyle; }, 50);
+            });
+        }
+        
+        // Initial Load
+        document.addEventListener("DOMContentLoaded", () => {
+            showView('view1');
+        });
+    </script>
+</body>
+</html>
