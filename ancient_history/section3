@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>김명의 난과 희강왕의 사망 분석</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* Shared Design System */
+        :root {
+            --color-primary: #1c1917; 
+            --color-secondary: #44403c;
+            --color-accent: #b45309;
+            --bg-paper: #fdfbf7;
+            --gradient-gold: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+        }
+        body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-paper); color: var(--color-secondary); line-height: 1.7; }
+
+        .container-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            border: 1px solid rgba(0,0,0,0.05);
+            padding: 3rem;
+            min-height: 60vh;
+            display: none;
+            animation: fadeUp 0.4s ease-out forwards;
+        }
+        .container-card.active { display: block; }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .text-gradient { background: var(--gradient-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .nav-btn {
+            padding: 0.75rem 1.25rem; border-radius: 8px; font-weight: 600; color: #78716c; background: transparent; transition: all 0.2s;
+        }
+        .nav-btn:hover { background-color: #f5f5f4; color: var(--color-primary); }
+        .nav-btn.active { background: white; color: var(--color-accent); box-shadow: 0 2px 8px rgba(0,0,0,0.05); border: 1px solid #e7e5e4; }
+
+        .policy-item {
+            background: #fafaf9; border: 1px solid #e7e5e4; border-radius: 12px; padding: 1.25rem;
+            display: flex; align-items: flex-start; gap: 1rem; transition: transform 0.2s;
+        }
+        .policy-item:hover { transform: translateY(-2px); background: white; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        
+        .section-title-wrapper { border-image: var(--gradient-gold) 1; border-image-slice: 1; border-left: 5px solid transparent; }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="pt-12 pb-8 px-6 text-center bg-white border-b border-stone-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-5xl mx-auto">
+            <span class="inline-block py-1 px-3 rounded-full bg-red-50 text-red-800 text-xs font-bold tracking-wider mb-3">PART 4</span>
+            <h1 class="text-3xl md:text-4xl font-extrabold mb-6 text-stone-900">
+                김명의 난과 <span class="text-gradient">희강왕의 사망</span>
+            </h1>
+            
+            <nav class="flex flex-wrap justify-center gap-2 mt-6">
+                <button onclick="showTab('sec-1')" class="nav-btn active" id="btn-1">📜 1. 난의 원인</button>
+                <button onclick="showTab('sec-2')" class="nav-btn" id="btn-2">👑 2. 갈문왕 추봉</button>
+                <button onclick="showTab('sec-3')" class="nav-btn" id="btn-3">⚓ 3. 김우징 이탈</button>
+                <button onclick="showTab('sec-4')" class="nav-btn" id="btn-4">🤝 4. 김의종 연대</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-6 py-10 min-h-screen">
+
+        <!-- Tab 1: 난의 원인과 정책 -->
+        <section id="sec-1" class="container-card active">
+            <div class="flex items-center mb-8 border-b border-stone-100 pb-6">
+                <div class="w-12 h-12 rounded-full bg-stone-800 flex items-center justify-center text-xl mr-4 text-white"><i class="fa-solid fa-gavel"></i></div>
+                <div>
+                    <h2 class="text-2xl font-bold text-stone-800">김명의 반란 원인: 희강왕의 정책</h2>
+                    <p class="text-sm text-stone-500">즉위 후 14개월, 왜 파국을 맞았나?</p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="space-y-4">
+                    <div class="policy-item">
+                        <i class="fa-solid fa-unlock text-amber-600 text-lg mt-1"></i>
+                        <div>
+                            <h3 class="font-bold text-stone-800">대사면 실시</h3>
+                            <p class="text-xs text-stone-500">즉위 초 민심 수습을 위한 조치</p>
+                        </div>
+                    </div>
+                    <div class="policy-item">
+                        <i class="fa-solid fa-users text-amber-600 text-lg mt-1"></i>
+                        <div>
+                            <h3 class="font-bold text-stone-800">부모 동시 추봉</h3>
+                            <p class="text-xs text-stone-500">익성대왕/순성태후. 정당성 확보 노력.</p>
+                        </div>
+                    </div>
+                    <div class="policy-item">
+                        <i class="fa-solid fa-chess-king text-amber-600 text-lg mt-1"></i>
+                        <div>
+                            <h3 class="font-bold text-stone-800">파격적 인사</h3>
+                            <p class="text-xs text-stone-500">20세 김명 → 상대등 임명 (합의 이행)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-stone-50 p-6 rounded-2xl border border-stone-200 flex flex-col justify-center">
+                    <h3 class="font-bold text-stone-800 mb-4 text-lg">🔍 갈등의 씨앗</h3>
+                    <p class="text-stone-600 text-sm leading-relaxed mb-4">
+                        즉위 직후 임명된 김명이 불과 14개월 만에 반란을 일으킨 것은, 단순한 불만이 아니라 **권력 분배와 차기 왕위 계승 구도**에 대한 심각한 균열이 발생했음을 의미합니다.
+                    </p>
+                    <div class="bg-white p-4 rounded-xl shadow-sm border-l-4 border-red-500">
+                        <strong class="text-red-700 text-sm">Core Issue:</strong> 합의된 권력 이양 구도의 붕괴
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab 2: 갈문왕 추봉 갈등 -->
+        <section id="sec-2" class="container-card">
+            <div class="text-center mb-8">
+                <h2 class="text-2xl font-bold text-stone-800">결정적 파열음: 김충공의 갈문왕 추봉</h2>
+                <p class="text-stone-500 text-sm mt-2">김명에게 정치적 사망 선고나 다름없었던 조치</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-0 rounded-2xl overflow-hidden shadow-lg border border-stone-200">
+                <div class="bg-white p-8 border-b md:border-b-0 md:border-r border-stone-100 relative">
+                    <h3 class="font-bold text-stone-800 mb-4 text-lg">희강왕의 의도 (견제)</h3>
+                    <ul class="space-y-3 text-sm text-stone-600">
+                        <li>• 장인 김충공을 <strong class="text-stone-900">'갈문왕'</strong>으로만 추봉</li>
+                        <li>• 아들(김계명)에게 왕위를 물려주기 위한 사전 작업</li>
+                        <li>• 김명의 정당성을 원천 차단</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-red-50 p-8 relative">
+                    <!-- VS Badge -->
+                    <div class="absolute left-1/2 top-0 md:top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full border border-stone-200 flex items-center justify-center font-black text-xs z-10 shadow-sm">VS</div>
+                    
+                    <h3 class="font-bold text-red-800 mb-4 text-lg">김명의 위기 (생존)</h3>
+                    <ul class="space-y-3 text-sm text-red-700">
+                        <li>• 부친이 '대왕'이 못 되면 즉위 명분 상실</li>
+                        <li>• 자신을 왕위 계승에서 배제하려는 신호로 인식</li>
+                        <li>• <strong>정치적 생존을 위한 반란 결심</strong></li>
+                    </ul>
+                </div>
+            </div>
+            <p class="text-xs text-stone-400 text-center mt-6">* 신라 하대 왕들은 대개 부친을 '대왕'으로 추봉함 (이례적 조치)</p>
+        </section>
+
+        <!-- Tab 3: 김우징의 이탈 -->
+        <section id="sec-3" class="container-card">
+            <div class="flex items-center mb-8 border-b border-stone-100 pb-6">
+                <div class="w-12 h-12 rounded-full bg-stone-100 flex items-center justify-center text-xl mr-4 text-stone-600"><i class="fa-solid fa-person-walking-arrow-right"></i></div>
+                <div>
+                    <h2 class="text-2xl font-bold text-stone-800">김우징의 이탈과 포섭 실패</h2>
+                    <p class="text-sm text-stone-500">외부 세력(장보고)과의 결탁 초래</p>
+                </div>
+            </div>
+
+            <div class="relative max-w-3xl mx-auto px-4">
+                <!-- Connecting Line -->
+                <div class="absolute left-8 top-4 bottom-4 w-0.5 bg-stone-200"></div>
+
+                <!-- Step 1 -->
+                <div class="relative pl-16 mb-8 group">
+                    <div class="absolute left-[25px] top-1.5 w-4 h-4 bg-green-500 rounded-full border-4 border-white shadow-sm z-10"></div>
+                    <div class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm">
+                        <h4 class="font-bold text-stone-800 text-sm mb-1">희강왕의 유화책</h4>
+                        <p class="text-xs text-stone-500">김우징에 대한 별도 처벌 없이 포섭 시도</p>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="relative pl-16 mb-8 group">
+                    <div class="absolute left-[25px] top-1.5 w-4 h-4 bg-red-500 rounded-full border-4 border-white shadow-sm z-10"></div>
+                    <div class="bg-red-50 p-4 rounded-xl border border-red-100 shadow-sm">
+                        <h4 class="font-bold text-red-800 text-sm mb-1">김명·이홍의 견제</h4>
+                        <p class="text-xs text-red-600">김우징의 불만을 구실로 정치적 압박 가함</p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="relative pl-16 group">
+                    <div class="absolute left-[25px] top-1.5 w-4 h-4 bg-stone-800 rounded-full border-4 border-white shadow-sm z-10"></div>
+                    <div class="bg-stone-100 p-4 rounded-xl border border-stone-200 shadow-sm">
+                        <h4 class="font-bold text-stone-800 text-sm mb-1">결과: 청해진 투탁</h4>
+                        <p class="text-xs text-stone-600">김우징과 김균정 세력, <strong>장보고</strong>에게 망명</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab 4: 김의종과의 연대 -->
+        <section id="sec-4" class="container-card">
+            <div class="flex items-center mb-8 border-b border-stone-100 pb-6">
+                <div class="w-12 h-12 rounded-full bg-stone-800 flex items-center justify-center text-xl mr-4 text-white"><i class="fa-solid fa-handshake"></i></div>
+                <div>
+                    <h2 class="text-2xl font-bold text-stone-800">김의종(헌안왕)과의 새로운 연대</h2>
+                    <p class="text-sm text-stone-500">희강왕의 마지막 승부수</p>
+                </div>
+            </div>
+
+            <div class="bg-blue-50 p-4 rounded-lg mb-8 flex items-center border border-blue-100">
+                <i class="fa-solid fa-circle-info text-blue-600 mr-3"></i>
+                <span class="text-sm text-blue-800">본문에서 언급되는 <strong>김의정(誼靖)</strong>과 헌안왕 <strong>김의종</strong>은 동일 인물입니다.</span>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-stone-50 p-6 rounded-xl border border-stone-200">
+                    <h3 class="font-bold text-stone-800 mb-4 text-lg">전략적 제휴의 목적</h3>
+                    <ul class="space-y-3 text-sm text-stone-600">
+                        <li><i class="fa-solid fa-check text-stone-400 mr-2"></i><strong>희강왕:</strong> 김명/김우징 견제, 아들(김계명)의 왕위 계승 안정화</li>
+                        <li><i class="fa-solid fa-check text-stone-400 mr-2"></i><strong>김의종:</strong> 당 숙위 후 국내 기반이 약해 왕실과의 결탁 필요</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white border-l-4 border-stone-800 p-6 rounded-r-xl shadow-lg">
+                    <h3 class="font-bold text-stone-900 mb-3 text-lg">🏁 최종 결론</h3>
+                    <p class="text-stone-700 text-base leading-relaxed mb-4">
+                        "희강왕이 김의종과 연대하여 아들 김계명에게 왕위를 물려주려 하자, <strong class="text-red-700">입지가 좁아진 김명은 자신의 정치적 생존을 위해 반란</strong>을 일으킨 것입니다."
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center text-stone-400 text-xs pb-8">
+        <p>신라 하대사 심층 분석 보고서 | 출처: 삼국사기 및 관련 연구 논문 재구성</p>
+    </footer>
+
+    <script>
+        function showTab(sectionId) {
+            document.querySelectorAll('.container-card').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById(sectionId).classList.add('active');
+            document.getElementById('btn-' + sectionId.replace('sec-', '')).classList.add('active');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        document.addEventListener('DOMContentLoaded', () => showTab('sec-1'));
+    </script>
+</body>
+</html>
