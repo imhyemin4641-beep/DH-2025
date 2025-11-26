@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>희강왕의 왕위계승과 김명과의 결탁 분석</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fonts: Pretendard for clean, modern look (using a common CDN/URL structure) -->
+    <style>
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+        
+        /* Sophisticated Palette */
+        :root {
+            --color-primary-dark: #1c1917; /* Warm Black/Dark Charcoal */
+            --color-accent-bronze: #b45309; /* Deep Amber/Bronze fallback */
+            --gradient-bronze: linear-gradient(135deg, #d97706 0%, #b45309 100%); /* Gold to Bronze Gradient */
+            --color-bg-soft: #f5f5f4; /* Stone 100 */
+            --color-box-white: #ffffff;
+        }
+
+        body {
+            font-family: 'Pretendard', sans-serif; /* Pretendard 서체 적용 */
+            background-color: var(--color-bg-soft);
+            color: #44403c; /* Stone 700 */
+        }
+
+        .container-card {
+            background-color: var(--color-box-white);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+            border-radius: 16px;
+            padding: 2.5rem; /* 패딩 축소 */
+            border: 1px solid #e7e5e4;
+            min-height: 60vh; /* 높이 조정 */
+        }
+        
+        /* Gradient Borders & Accents */
+        .section-title-wrapper {
+            border-image: var(--gradient-bronze) 1;
+            border-image-slice: 1;
+            border-left: 5px solid transparent;
+        }
+        
+        .gradient-text {
+            background: var(--gradient-bronze);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* TOC Navigation Styling */
+        .toc-link {
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            font-size: 0.875rem; /* TOC 글자 크기 축소 */
+        }
+        .toc-link:hover {
+            background-color: #e7e5e4;
+        }
+        .toc-link.active {
+            background: var(--gradient-bronze); 
+            color: #ffffff;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(180, 83, 9, 0.3);
+            transform: translateY(-1px);
+        }
+        .icon-text { margin-right: 0.6rem; }
+        
+        /* Custom Utilities */
+        .bg-bronze-soft { background-color: #fffbeb; } /* Amber 50 */
+        .border-bronze-light { border-color: #fcd34d; }
+        
+        /* Header Accent */
+        .header-accent {
+            height: 6px;
+            background: var(--gradient-bronze);
+            border-radius: 6px 6px 0 0;
+        }
+        
+        /* Visual Faction Comparison */
+        .faction-box {
+            position: relative;
+            min-height: 180px; /* 높이 축소 */
+        }
+        .vs-line {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            font-size: 1.75rem; /* VS 글자 크기 축소 */
+            font-weight: 900;
+            color: #b45309;
+            background-color: white;
+            padding: 0 8px; /* 패딩 축소 */
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 텍스트 크기 조정 */
+        .text-xl { font-size: 1.125rem; } /* 기존 2XL 정도의 크기를 1.125rem으로 */
+        .text-lg { font-size: 1rem; }
+        .text-base { font-size: 0.9375rem; } /* 기본 본문 크기 */
+        .text-sm { font-size: 0.875rem; }
+        .text-xs { font-size: 0.75rem; }
+    </style>
+</head>
+<body>
+
+    <!-- Sticky Navigation (TOC) -->
+    <nav class="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-stone-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col md:flex-row justify-between items-center">
+            <span class="text-xl font-black text-stone-800 tracking-tight mb-2 md:mb-0">
+                신라 하대사 연구 보고서
+            </span>
+            <div id="toc-buttons" class="flex flex-wrap justify-center gap-2 text-sm">
+                <a href="#sec-1-conflict" class="toc-link px-3 py-1.5 text-stone-600">⚔️ 1. 왕위쟁탈전 발발</a>
+                <a href="#sec-2-gyunjeong" class="toc-link px-3 py-1.5 text-stone-600">🏛️ 2. 김균정의 압도적 위상</a>
+                <a href="#sec-3-legitimacy" class="toc-link px-3 py-1.5 text-stone-600">⚖️ 3. 즉위 정당성 문제</a>
+                <a href="#sec-4-comparison" class="toc-link px-3 py-1.5 text-stone-600">🛡️ 4. 세력 인적/군사력 비교</a>
+                <a href="#sec-5-alliance-rationale" class="toc-link px-3 py-1.5 text-stone-600">🤝 5. 김명의 결탁 이유</a>
+            </div>
+        </div>
+    </nav>
+
+    <div id="app" class="min-h-screen p-4 md:p-10 pt-6">
+        
+        <!-- Main Header -->
+        <header class="max-w-5xl mx-auto text-center mb-8">
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                <div class="header-accent"></div>
+                <div class="py-8 px-5">
+                    <h1 class="text-3xl font-black text-stone-900 leading-tight">
+                        👑 3. 희강왕의 왕위계승과 <span class="gradient-text">김명과의 결탁</span>
+                    </h1>
+                    <p class="mt-2 text-base text-stone-500 font-medium">
+                        흥덕왕 사후, 왕위를 둘러싼 두 세력의 충돌과 전략적 연합 분석
+                    </p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Content Container -->
+        <div id="content-display" class="max-w-7xl mx-auto">
+
+            <!-- SECTION 1: 왕위쟁탈전의 발발 -->
+            <section id="sec-1-conflict" class="tab-content container-card" data-tab-name="sec-1-conflict">
+                <h2 class="text-2xl font-extrabold text-stone-800 mb-6 pl-4 section-title-wrapper">
+                    <span class="icon-text">⚔️</span> Part 1. 흥덕왕 사후 왕위쟁탈전의 전개
+                </h2>
+                
+                <p class="text-base text-stone-700 mb-6 leading-relaxed">
+                    흥덕왕이 적자 없이 사망하자, 신라 조정의 두 거대한 파벌인 숙부 김균정과 종제(사촌동생의 아들) 김제륭(희강왕)이 동시에 왕위를 다투며 무력 충돌이 발생했습니다.
+                </p>
+
+                <!-- 대결 구도 시각화 -->
+                <div class="grid md:grid-cols-2 gap-4 mb-8 faction-box">
+                    <!-- 김제륭 파벌 (승리) -->
+                    <div class="bg-stone-800 text-white p-4 rounded-xl shadow-lg">
+                        <h3 class="text-lg font-bold mb-3 text-amber-400">
+                            김제륭 세력 (희강왕) - 승리 파벌
+                        </h3>
+                        <ul class="space-y-1 text-sm text-stone-300">
+                            <li class="flex items-start"><span class="mr-2 text-amber-300">👑</span> <strong class="text-white">김제륭</strong> (본인, 흥덕왕 종질)</li>
+                            <li class="flex items-start"><span class="mr-2 text-amber-300">🧠</span> <strong class="text-amber-300">김명 (시중)</strong></li>
+                            <li class="flex items-start"><span class="mr-2 text-amber-300">🛡️</span> 아찬 이홍, 배흰백 (핵심 무력 지휘)</li>
+                        </ul>
+                    </div>
+
+                    <!-- 김균정 파벌 (패배) -->
+                    <div class="bg-white border-2 border-stone-200 p-4 rounded-xl shadow-sm">
+                        <h3 class="text-lg font-bold mb-3 text-stone-600">
+                            김균정 세력 - 패배 파벌
+                        </h3>
+                        <ul class="space-y-1 text-sm text-stone-600">
+                            <li class="flex items-start"><span class="mr-2 text-stone-500">👤</span> <strong>김균정</strong> (상대등, 흥덕왕 숙부)</li>
+                            <li class="flex items-start"><span class="mr-2 text-stone-500">⚔️</span> 김우징 (아들), 김예징 (조카)</li>
+                            <li class="flex items-start"><span class="mr-2 text-stone-500">🏹</span> 김양 (무열왕계 후손)</li>
+                        </ul>
+                    </div>
+                    <span class="vs-line">VS</span>
+                </div>
+
+                <!-- 사료 요약 박스 -->
+                <div class="bg-bronze-soft border-l-4 border-amber-600 p-4 rounded-r-lg">
+                    <h4 class="font-bold text-lg text-amber-800 mb-2">📜 사료 분석 요약 (E-2 사료)</h4>
+                    <p class="text-sm text-stone-700 leading-relaxed">
+                        김균정 세력은 적판궁에서 숙위했으나, 김명, 이홍 등의 김제륭 세력이 포위 공격을 감행했습니다. 김균정은 수적 열세를 이유로 후일을 도모하라 했으나, 결국 난병에게 살해당했고, 이후 김제륭이 즉위했습니다.
+                    </p>
+                </div>
+            </section>
+
+            <!-- SECTION 2: 김균정의 세력 -->
+            <section id="sec-2-gyunjeong" class="tab-content container-card hidden" data-tab-name="sec-2-gyunjeong">
+                <h2 class="text-2xl font-extrabold text-stone-800 mb-6 pl-4 section-title-wrapper">
+                    <span class="icon-text">🏛️</span> Part 2. 왕위 쟁탈전 직전, 김균정의 압도적 위상
+                </h2>
+
+                <p class="text-base text-stone-700 mb-6 leading-relaxed">
+                    김균정은 흥덕왕 사후 명실상부한 신라 귀족 사회의 1인자였습니다. 그의 관직 경력은 희강왕 즉위 이전에 이미 최고조에 달해 있었습니다.
+                </p>
+
+                <!-- 타임라인 스타일 (관직 경력) -->
+                <div class="relative border-l-2 border-amber-400 ml-4 space-y-6 my-8">
+                    <div class="timeline-line bg-amber-200"></div>
+                    
+                    <!-- Item 1: 애장왕 3년 (802) -->
+                    <div class="relative pl-8 timeline-item">
+                        <span class="absolute -left-[11px] top-0 w-5 h-5 rounded-full bg-amber-600 border-4 border-white shadow-sm"></span>
+                        <h3 class="font-bold text-lg text-stone-800">애장왕 3년 (802)</h3>
+                        <p class="text-sm text-stone-600 mt-1">
+                            <span class="font-semibold text-amber-700">대아찬 및 가왕자</span> 임명 (왜국 인질 파견 시도).
+                        </p>
+                    </div>
+                    <!-- Item 2: 헌덕왕 4년 (812) -->
+                    <div class="relative pl-8 timeline-item">
+                        <span class="absolute -left-[11px] top-0 w-5 h-5 rounded-full bg-amber-600 border-4 border-white shadow-sm"></span>
+                        <h3 class="font-bold text-lg text-stone-800">헌덕왕 4년 (812)</h3>
+                        <p class="text-sm text-stone-600 mt-1">
+                            <span class="font-semibold text-amber-700">시중(侍中)</span> 역임. 국정 총괄하는 핵심 재상.
+                        </p>
+                    </div>
+                    <!-- Item 3: 흥덕왕 10년 (835) -->
+                    <div class="relative pl-8 timeline-item">
+                        <span class="absolute -left-[11px] top-0 w-5 h-5 rounded-full bg-amber-600 border-4 border-white shadow-sm"></span>
+                        <h3 class="font-bold text-lg text-stone-900">흥덕왕 10년 (835)</h3>
+                        <p class="text-sm text-stone-600 mt-1">
+                            <span class="font-semibold text-amber-700">상대등(上大等)</span> 취임. (김충공 사망 후)<br>
+                            - 신라 귀족 중 **최고 권력**을 누렸으며, 마땅한 경쟁자 부재.
+                        </p>
+                    </div>
+                    
+                </div>
+                
+                <div class="bg-stone-100 p-3 rounded-lg text-center text-stone-600 text-sm font-medium border border-stone-200">
+                    "따라서, 김균정의 즉위 시도는 가장 정점에 있던 세력의 자연스러운 권력 승계처럼 보였습니다."
+                </div>
+            </section>
+
+            <!-- SECTION 3: 왕위쟁탈전의 발생 원인/정당성 -->
+            <section id="sec-3-legitimacy" class="tab-content container-card hidden" data-tab-name="sec-3-legitimacy">
+                <h2 class="text-2xl font-extrabold text-stone-800 mb-6 pl-4 section-title-wrapper">
+                    <span class="icon-text">⚖️</span> Part 3. 승인되지 않은 즉위: 김균정의 정당성 문제
+                </h2>
+
+                <div class="bg-white border border-stone-200 rounded-xl p-4 shadow-sm mb-6">
+                    <h3 class="text-xl font-bold text-stone-800 mb-3">❓ 핵심 의문: 왜 김균정의 즉위는 인정받지 못했는가?</h3>
+                    <p class="text-base text-stone-600 mb-2 leading-relaxed">
+                        최고 권력자였던 김균정을 김제륭이 무력으로 공격했음에도, 역사 기록은 김제륭의 즉위를 '찬탈'로 규정하지 않았습니다. 문제는 김균정의 **즉위 정당성 확보 과정**에 있었습니다.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-4">
+                    <!-- 비교: 원성왕 (성공 사례) -->
+                    <div class="bg-stone-50 p-4 rounded-lg border-l-4 border-stone-400">
+                        <h4 class="font-bold text-lg text-stone-700 mb-2 border-b border-stone-300 pb-1">성공적 정당성 확보 (원성왕 즉위)</h4>
+                        <p class="text-sm text-stone-600 leading-relaxed">
+                            원성왕은 폭우(하늘의 뜻)와 더불어, 즉위 후 <strong class="text-amber-700">국인(國人)들이 만세</strong>를 부르며 지지했다는 기록을 남겼습니다. 이는 **광범위한 귀족 및 민심의 합의**가 있었음을 의미합니다.
+                        </p>
+                    </div>
+                    <!-- 분석: 김균정 (실패 사례) -->
+                    <div class="bg-amber-50 p-4 rounded-lg border-l-4 border-amber-600">
+                        <h4 class="font-bold text-lg text-amber-800 mb-2 border-b border-amber-200 pb-1">분석: 김균정 즉위의 결정적 한계</h4>
+                        <p class="text-sm text-stone-600 leading-relaxed">
+                            김균정이 즉위했을 때, 그를 지지하는 <strong class="text-stone-900">국인들의 동의나 만세 기록이 부재</strong>합니다.<br>
+                            즉, 그의 즉위 시도는 **신라 정치 체계 구성원들에게 '완전한 정당성'을 인정**받지 못했을 가능성이 컸습니다.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 4: 김균정 세력과 김제륭 세력의 비교 -->
+            <section id="sec-4-comparison" class="tab-content container-card hidden" data-tab-name="sec-4-comparison">
+                <h2 class="text-2xl font-extrabold text-stone-800 mb-6 pl-4 section-title-wrapper">
+                    <span class="icon-text">🛡️</span> Part 4. 두 세력의 인적 구성 및 군사력 비교
+                </h2>
+
+                <p class="text-base text-stone-700 mb-6 leading-relaxed">
+                    승패를 가른 것은 단순히 왕족의 지위뿐만 아니라, **동원된 세력의 성격과 규모**에 있었습니다. 김제륭 세력은 김균정 세력에 비해 더 많은 인적 스펙트럼을 동원했습니다.
+                </p>
+
+                <!-- 표 디자인 -->
+                <h3 class="text-lg font-bold text-stone-700 mb-3">📊 왕위쟁탈전 세력 인적 구성 비교</h3>
+                <div class="overflow-hidden rounded-xl border border-stone-200 mb-8 shadow-md">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-stone-800 text-white">
+                                <th class="p-3 font-medium w-1/2">김균정 세력 (진골 혈족 중심)</th>
+                                <th class="p-3 font-medium w-1/2 bg-amber-700">김제륭 세력 (무력/이질적 세력 포함)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-stone-700 bg-white">
+                            <tr class="border-b border-stone-100">
+                                <td class="p-3 align-top">
+                                    <ul class="list-disc list-inside space-y-1 text-sm">
+                                        <li><strong>진골 중심:</strong> 김균정, 김우징, 김예징 (가까운 혈족 집단)</li>
+                                        <li><strong>무열왕계:</strong> 김양 포함</li>
+                                    </ul>
+                                </td>
+                                <td class="p-3 align-top bg-amber-50/30">
+                                    <ul class="list-disc list-inside space-y-1 text-sm">
+                                        <li><strong>핵심:</strong> 김제륭, 김명, 이홍</li>
+                                        <li><strong class="text-amber-700">6두품 세력:</strong> 배흰백 포함 (김제륭의 사병 일원)</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 군사력 분석 그래프/흐름 -->
+                <h3 class="text-lg font-bold text-stone-700 mb-3">📈 군사적 양상 분석</h3>
+                <div class="flex items-center justify-between bg-stone-100 p-4 rounded-xl border border-stone-200">
+                    <div class="text-center w-1/3">
+                        <p class="font-bold text-stone-800 text-lg">김균정 세력</p>
+                        <p class="text-red-500 font-semibold text-sm mt-1">수성전 (궁문 병사 배치)</p>
+                    </div>
+                    <div class="text-xl font-black text-amber-700 w-1/3 text-center">
+                        ↔️ (교전 후 포기)
+                    </div>
+                    <div class="text-center w-1/3">
+                        <p class="font-bold text-stone-800 text-lg">김제륭 세력</p>
+                        <p class="text-green-500 font-semibold text-sm mt-1">공성전 (김균정군을 제압)</p>
+                    </div>
+                </div>
+                <p class="text-xs text-stone-600 mt-3 text-center">
+                    수성전이 일반적으로 유리함에도 패배한 것은, 김제륭 세력이 6두품 등 이질적인 세력을 중용하여 훨씬 큰 규모의 병력을 동원했을 가능성을 시사합니다.
+                </p>
+            </section>
+
+            <!-- SECTION 5: 김명의 전략적 결탁 이유 -->
+            <section id="sec-5-alliance-rationale" class="tab-content container-card hidden" data-tab-name="sec-5-alliance-rationale">
+                <h2 class="text-2xl font-extrabold text-stone-800 mb-6 pl-4 section-title-wrapper">
+                    <span class="icon-text">🤝</span> Part 5. 김명의 선택: 전략적 '킹메이커' 입지 확보
+                </h2>
+
+                <p class="text-base text-stone-700 mb-6 leading-relaxed">
+                    당시 정계 1인자였던 김균정을 두고, 왜 김명은 상대적으로 열세였던 김제륭과 결탁했을까요? 그 이유는 **정권 독점 견제와 자신의 정치적 입지 극대화**라는 전략적 계산 때문이었습니다.
+                </p>
+
+                <!-- 결탁 이유 시각화 (3가지 포인트) -->
+                <div class="space-y-4">
+                    <!-- Point 1: 권력 독점 견제 -->
+                    <div class="bg-stone-50 p-4 rounded-xl border-l-4 border-stone-400 shadow-md flex items-start">
+                        <div class="flex-shrink-0 w-7 h-7 rounded-full bg-stone-300 flex items-center justify-center mr-3 font-black text-sm text-stone-800">1</div>
+                        <div>
+                            <h3 class="font-bold text-lg text-stone-800 mb-1">권력 독점 견제</h3>
+                            <p class="text-sm text-stone-700">
+                                김균정이 왕이 되면 김우징 일족이 정권을 독점할 가능성이 높아, 이를 견제할 필요성이 있었습니다.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Point 2: 킹메이커 입지 -->
+                    <div class="bg-amber-50 p-4 rounded-xl border-l-4 border-amber-600 shadow-md flex items-start">
+                        <div class="flex-shrink-0 w-7 h-7 rounded-full bg-amber-300 flex items-center justify-center mr-3 font-black text-sm text-amber-800">2</div>
+                        <div>
+                            <h3 class="font-bold text-lg text-amber-800 mb-1">전략적 '킹메이커' 입지 확보</h3>
+                            <p class="text-sm text-stone-700">
+                                열세인 김제륭을 왕으로 만들어 자신이 실질적인 **'최고 실세'**로서 영향력을 극대화하는 것이 유리했습니다.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Point 3: 내부 차별에 대한 반발 -->
+                    <div class="bg-stone-50 p-4 rounded-xl border-l-4 border-stone-400 shadow-md flex items-start">
+                        <div class="flex-shrink-0 w-7 h-7 rounded-full bg-stone-300 flex items-center justify-center mr-3 font-black text-sm text-stone-800">3</div>
+                        <div>
+                            <h3 class="font-bold text-lg text-stone-800 mb-1">원성왕계 내부 차별에 대한 반발</h3>
+                            <p class="text-sm text-stone-700">
+                                김명(김충공의 아들)이 기존 주류(김균정)에 대항하여 자신의 가계의 성장을 도모하려는 동기가 있었습니다.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <blockquote class="mt-6 border-l-4 border-amber-700 bg-amber-50 p-4 rounded-r-lg text-amber-800 italic text-base font-medium shadow-sm">
+                    "김명의 선택은 단순한 왕위 계승 문제가 아니라, **자신의 가계가 중앙 권력의 핵심**이 되기 위한 가장 효과적인 **전략적 투자**였던 것으로 추론됩니다."
+                </blockquote>
+            </section>
+            
+            <!-- 푸터 -->
+            <footer class="mt-12 text-center text-stone-400 text-xs pb-4">
+                <p>신라 하대사 심층 분석 보고서 | 출처: 『삼국사기』 및 권영오 등 관련 연구 논문 재구성</p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        // Tab Switching Logic (Same as previous parts)
+        const navLinks = document.querySelectorAll('.toc-link');
+        const contentSections = document.querySelectorAll('.tab-content');
+        
+        function showTab(tabId) {
+            // Hide all sections
+            contentSections.forEach(section => {
+                section.classList.add('hidden');
+                section.classList.remove('active');
+            });
+            // Deactivate all links
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // Show target section
+            const targetSection = document.getElementById(tabId);
+            if (targetSection) {
+                targetSection.classList.remove('hidden');
+                targetSection.classList.add('active');
+            }
+
+            // Activate target link
+            const activeLink = document.querySelector(`.toc-link[href="#${tabId}"]`);
+            if (activeLink) activeLink.classList.add('active');
+
+            // Scroll adjustment
+            window.scrollTo({
+                top: document.getElementById('app').offsetTop - 80,
+                behavior: 'smooth'
+            });
+        }
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const tabId = link.getAttribute('href').substring(1);
+                showTab(tabId);
+            });
+        });
+
+        // Initial Load
+        document.addEventListener('DOMContentLoaded', () => {
+            showTab('sec-1-conflict');
+        });
+    </script>
+</body>
+</html>
