@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>헌덕·흥덕왕대의 김제륭과 김명 분석</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fonts: Pretendard -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* Design System */
+        :root {
+            --color-primary: #1c1917; /* Warm Black */
+            --color-secondary: #44403c; /* Stone 700 */
+            --color-accent: #b45309; /* Bronze */
+            --bg-paper: #fdfbf7; /* Warm Paper */
+            --gradient-gold: linear-gradient(135deg, #d97706 0%, #92400e 100%);
+        }
+
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: var(--bg-paper);
+            color: var(--color-secondary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Container Styling */
+        .container-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            border: 1px solid rgba(0,0,0,0.05);
+            padding: 3rem;
+            min-height: 60vh;
+            display: none;
+            animation: fadeUp 0.4s ease-out forwards;
+        }
+        .container-card.active { display: block; }
+        
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Text & Accents */
+        h1, h2, h3 { color: var(--color-primary); letter-spacing: -0.02em; }
+        .text-gradient {
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .section-title-wrapper {
+            border-image: var(--gradient-gold) 1;
+            border-image-slice: 1;
+            border-left: 5px solid transparent;
+        }
+
+        /* Navigation Buttons */
+        .nav-btn {
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #78716c;
+            background-color: transparent;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+        .nav-btn:hover { background-color: #f5f5f4; color: var(--color-primary); }
+        .nav-btn.active {
+            background: white;
+            color: var(--color-accent);
+            border-color: #e7e5e4;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        /* Custom Visuals */
+        .stat-bar-bg { background-color: #e7e5e4; height: 1rem; border-radius: 9999px; overflow: hidden; }
+        .stat-bar-fill { height: 100%; border-radius: 9999px; transition: width 1s ease-out; }
+        
+        .comparison-card {
+            border: 1px solid #e7e5e4;
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: transform 0.2s;
+        }
+        .comparison-card:hover { transform: translateY(-4px); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="pt-12 pb-8 px-6 text-center bg-white border-b border-stone-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-5xl mx-auto">
+            <span class="inline-block py-1 px-3 rounded-full bg-amber-100 text-amber-800 text-xs font-bold tracking-wider mb-3">PART 2</span>
+            <h1 class="text-3xl md:text-4xl font-extrabold mb-6 text-stone-900">
+                헌덕·흥덕왕대의 <span class="text-gradient">김제륭과 김명 분석</span>
+            </h1>
+            
+            <nav class="flex flex-wrap justify-center gap-2 mt-6">
+                <button onclick="showTab('sec-1')" class="nav-btn active" id="btn-1">🛡️ 1. 김헌창의 난</button>
+                <button onclick="showTab('sec-2')" class="nav-btn" id="btn-2">⚔️ 2. 김제륭의 기반</button>
+                <button onclick="showTab('sec-3')" class="nav-btn" id="btn-3">🏛️ 3. 김명의 한계</button>
+                <button onclick="showTab('sec-4')" class="nav-btn" id="btn-4">🏁 4. 최종 결론</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-6 py-10 min-h-screen">
+
+        <!-- Tab 1: 김헌창의 난 -->
+        <section id="sec-1" class="container-card active">
+            <div class="flex items-center mb-8 border-b border-stone-100 pb-6">
+                <div class="w-12 h-12 rounded-full bg-stone-100 flex items-center justify-center text-xl mr-4 text-stone-700"><i class="fa-solid fa-shield-halved"></i></div>
+                <div>
+                    <h2 class="text-2xl font-bold text-stone-800">김헌창의 난 진압과 공적</h2>
+                    <p class="text-sm text-stone-500">김제륭의 정치적 부상 배경</p>
+                </div>
+            </div>
+
+            <p class="text-stone-700 mb-8 leading-relaxed text-base">
+                희강왕 김제륭은 경덕왕 사후 왕위쟁탈전에서 김균정을 제치고 왕위에 올랐습니다. 『삼국사기』에 따르면 그는 김헌창의 난 진압 과정에 <strong>'파진찬 제릉'</strong>으로 종군하여 공을 세웠습니다.
+            </p>
+
+            <div class="bg-white border border-stone-200 rounded-xl overflow-hidden shadow-sm mb-8">
+                <div class="bg-stone-800 text-white p-4 text-center font-bold">난 진압 전후 관직 변화 비교</div>
+                <div class="grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-stone-200 text-sm">
+                    <div class="p-6 text-center hover:bg-stone-50 transition">
+                        <div class="font-bold text-stone-800 text-lg mb-1">김균정</div>
+                        <p class="text-stone-500 mb-3">대아찬, 시중</p>
+                        <i class="fa-solid fa-arrow-down text-stone-300 mb-3"></i>
+                        <p class="font-bold text-amber-700">상대등 승진</p>
+                    </div>
+                    <div class="p-6 text-center hover:bg-stone-50 transition bg-stone-50/50">
+                        <div class="font-bold text-stone-800 text-lg mb-1">김충공</div>
+                        <p class="text-stone-500 mb-3">상대등</p>
+                        <i class="fa-solid fa-arrow-down text-stone-300 mb-3"></i>
+                        <p class="font-bold text-amber-700">태자 책봉</p>
+                    </div>
+                    <div class="p-6 text-center hover:bg-stone-50 transition relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-amber-500"></div>
+                        <div class="font-bold text-stone-900 text-lg mb-1">김제륭</div>
+                        <p class="text-stone-500 mb-3">파진찬</p>
+                        <i class="fa-solid fa-arrow-down text-stone-300 mb-3"></i>
+                        <p class="font-bold text-stone-800">잡손/이찬 승진 추정</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab 2: 김헌정의 군사력 -->
+        <section id="sec-2" class="container-card">
+            <div class="flex items-center mb-8 border-b border-stone-100 pb-6">
+                <div class="w-12 h-12 rounded-full bg-amber-50 flex items-center justify-center text-xl mr-4 text-amber-700"><i class="fa-solid fa-person-military-rifle"></i></div>
+                <div>
+                    <h2 class="text-2xl font-bold text-stone-800">김제륭의 무력 기반: 아버지 김헌정</h2>
+                    <p class="text-sm text-stone-500">단순한 왕족이 아닌 실질적 무력 보유자</p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-10">
+                <div>
+                    <p class="text-stone-700 mb-6 leading-relaxed text-base">
+                        김제륭의 아버지 <strong>김헌정</strong>은 헌덕왕 대 <span class="text-amber-700 font-bold">병부령(군권 장악)</span>을 지낸 핵심 실권자였습니다.
+                    </p>
+                    <div class="bg-stone-50 p-5 rounded-xl border-l-4 border-amber-600 shadow-sm">
+                        <h4 class="font-bold text-stone-800 mb-2 text-lg">💡 핵심 추론</h4>
+                        <ul class="space-y-2 text-sm text-stone-600">
+                            <li class="flex items-start"><i class="fa-solid fa-check text-amber-500 mt-1 mr-2"></i> 김제륭이 아버지의 병부령 직무를 대리했을 가능성</li>
+                            <li class="flex items-start"><i class="fa-solid fa-check text-amber-500 mt-1 mr-2"></i> <strong class="text-stone-900">강력한 사병집단 계승</strong> (결정적 요인)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-stone-200 p-6 rounded-2xl shadow-md">
+                    <h3 class="text-center font-bold text-stone-800 mb-6">김제륭 세력 파워 게이지</h3>
+                    
+                    <div class="mb-5">
+                        <div class="flex justify-between text-xs font-bold text-stone-500 mb-2">
+                            <span>사병 보유 (Military)</span>
+                            <span>매우 높음</span>
+                        </div>
+                        <div class="stat-bar-bg">
+                            <div class="stat-bar-fill bg-stone-800" style="width: 90%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="flex justify-between text-xs font-bold text-stone-500 mb-2">
+                            <span>정치적 명분 (Political)</span>
+                            <span>높음</span>
+                        </div>
+                        <div class="stat-bar-bg">
+                            <div class="stat-bar-fill bg-amber-600" style="width: 75%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab 3: 김명의 입지 차이 -->
+        <section id="sec-3" class="container-card">
+            <div class="flex items-center mb-8 border-b border-stone-100 pb-6">
+                <div class="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center text-xl mr-4 text-red-600"><i class="fa-solid fa-scale-unbalanced"></i></div>
+                <div>
+                    <h2 class="text-2xl font-bold text-stone-800">김명의 입지 차이: 불완전한 계승</h2>
+                    <p class="text-sm text-stone-500">최고 실세의 아들임에도 권력을 승계하지 못함</p>
+                </div>
+            </div>
+
+            <p class="text-stone-700 mb-8 text-base">
+                김명은 흥덕왕의 조카이자 당시 1인자였던 김충공의 아들이었으나, 정작 아버지 사후 권력을 온전히 물려받지 못했습니다.
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Father -->
+                <div class="comparison-card bg-stone-50">
+                    <div class="text-xs font-bold text-stone-400 uppercase mb-2 tracking-widest">Father</div>
+                    <h3 class="text-xl font-bold text-stone-800 mb-3">김충공 <span class="text-sm font-normal text-stone-500">(1인자)</span></h3>
+                    <ul class="text-sm text-stone-600 space-y-2">
+                        <li><i class="fa-solid fa-circle-check text-green-500 mr-2"></i>시중, 상대등 역임</li>
+                        <li><i class="fa-solid fa-circle-check text-green-500 mr-2"></i>흥덕왕 대 <strong>태자 책봉</strong></li>
+                    </ul>
+                </div>
+
+                <!-- Son -->
+                <div class="comparison-card bg-white border-red-200 shadow-sm">
+                    <div class="text-xs font-bold text-red-400 uppercase mb-2 tracking-widest">Son</div>
+                    <h3 class="text-xl font-bold text-red-700 mb-3">김명 <span class="text-sm font-normal text-red-400">(승계 실패)</span></h3>
+                    <ul class="text-sm text-stone-600 space-y-2">
+                        <li><i class="fa-solid fa-circle-xmark text-red-500 mr-2"></i><strong>상대등</strong> 직책을 김균정에게 뺏김</li>
+                        <li><i class="fa-solid fa-circle-xmark text-red-500 mr-2"></i>유조에 후계자로 지목되지 않음</li>
+                        <li class="text-xs text-stone-400 pt-2 border-t border-stone-100 mt-2">
+                            * 혈연보다 개인의 정치적 입지가 더 중요했음을 시사
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab 4: 최종 결론 -->
+        <section id="sec-4" class="container-card">
+            <div class="text-center max-w-3xl mx-auto">
+                <div class="mb-8">
+                    <span class="text-amber-600 font-bold tracking-widest text-xs uppercase border border-amber-200 px-3 py-1 rounded-full">Final Conclusion</span>
+                    <h2 class="text-3xl font-bold text-stone-900 mt-4 mb-6">상호 필요에 의한 <span class="text-gradient">전략적 결탁</span></h2>
+                </div>
+
+                <div class="bg-stone-900 text-stone-300 p-8 rounded-2xl shadow-xl relative overflow-hidden mb-8 text-left">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-amber-600 rounded-full blur-3xl opacity-20 -mr-10 -mt-10"></div>
+                    <p class="text-lg leading-relaxed font-medium text-stone-100 mb-4">
+                        "김명은 정치적 실세였으나 권력 승계에 실패했고, 김제륭은 강력한 사병 집단을 보유했습니다."
+                    </p>
+                    <p class="text-base leading-relaxed opacity-80">
+                        따라서 두 인물의 결탁은 한쪽이 일방적으로 이용당한 것이 아니라, 서로의 약점을 보완하는 <strong class="text-amber-400">대등한 관계에서의 전략적 연합</strong>이었습니다.
+                    </p>
+                </div>
+
+                <div class="flex justify-center gap-8 text-sm font-bold text-stone-500">
+                    <div class="flex items-center"><div class="w-3 h-3 bg-amber-600 rounded-full mr-2"></div>김제륭 (무력)</div>
+                    <div class="flex items-center"><div class="w-3 h-3 bg-stone-600 rounded-full mr-2"></div>김명 (배경)</div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center text-stone-400 text-xs pb-8">
+        <p>신라 하대사 심층 분석 보고서 | 출처: 삼국사기 및 관련 연구 논문 재구성</p>
+    </footer>
+
+    <script>
+        function showTab(tabId) {
+            document.querySelectorAll('.container-card').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            document.getElementById('btn-' + tabId.replace('sec-', '')).classList.add('active');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        document.addEventListener('DOMContentLoaded', () => showTab('sec-1'));
+    </script>
+</body>
+</html>
