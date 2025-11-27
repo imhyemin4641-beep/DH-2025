@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>신라 왕실 직관적 가계도</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap');
+        
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f8fafc;
+            padding: 20px;
+            padding-bottom: 20px;
+        }
+
+        /* Flexbox 기반 트리 구조 스타일링 */
+        .tree {
+            display: flex;
+            justify-content: center;
+            position: relative;
+            min-width: 1200px; /* 가로 스크롤 확보를 위한 최소 너비 */
+            padding-top: 40px; /* 상단 여백 추가 (제목 삭제됨) */
+        }
+        .tree ul {
+            padding-top: 20px; 
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .tree li {
+            list-style-type: none;
+            position: relative;
+            padding: 20px 10px 0 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* 연결선 그리기 */
+        .tree li::before, .tree li::after {
+            content: '';
+            position: absolute; top: 0; right: 50%;
+            border-top: 2px solid #cbd5e1;
+            width: 50%; height: 20px;
+            z-index: 0;
+        }
+        .tree li::after {
+            right: auto; left: 50%;
+            border-left: 2px solid #cbd5e1;
+        }
+
+        .tree li:only-child::after, .tree li:only-child::before { display: none; }
+        .tree li:only-child { padding-top: 0; }
+        .tree li:first-child::before, .tree li:last-child::after { border: 0 none; }
+        .tree li:last-child::before{ border-right: 2px solid #cbd5e1; border-radius: 0 5px 0 0; }
+        .tree li:first-child::after{ border-radius: 5px 0 0 0; }
+
+        .tree ul ul::before{
+            content: '';
+            position: absolute; top: 0; left: 50%;
+            border-left: 2px solid #cbd5e1;
+            width: 0; height: 20px;
+        }
+
+        /* 인물 카드 스타일 */
+        .card {
+            border: 2px solid #e2e8f0;
+            padding: 6px;
+            text-decoration: none;
+            color: #334155;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 12px;
+            border-radius: 8px;
+            transition: all 0.5s;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            position: relative;
+            z-index: 10;
+            
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 130px;       
+            height: 90px;      
+        }
+
+        /* 카드 내부 텍스트 */
+        .card span {
+            display: block;
+            font-size: 11px;
+            margin-bottom: 2px;
+            color: #64748b;
+            font-weight: 600;
+        }
+        .card .name {
+            font-weight: 800;
+            font-size: 13px;
+            color: #1e293b;
+            text-align: center;
+            word-break: keep-all;
+        }
+        .card .desc {
+            font-size: 10px;
+            color: #64748b;
+            margin-top: 2px;
+            line-height: 1.2;
+            text-align: center;
+        }
+
+        /* 스타일 클래스 */
+        .king {
+            background-color: #fff7ed;
+            border-color: #fdba74;
+            border-width: 3px;
+        }
+        .king .name { color: #ea580c; font-size: 14px; }
+        .king span { color: #c2410c; }
+
+        .father { background-color: #f1f5f9; border-style: dashed; }
+        
+        .badge {
+            display: inline-block; font-size: 10px; background: #e0f2fe; color: #0369a1;
+            border-radius: 4px; padding: 1px 4px; margin-top: 2px; font-weight: 700;
+        }
+
+        /* 특정 인물 강조 */
+        #card-gyunjeong { border-color: #f43f5e; background-color: #fff1f2; } /* 김균정 */
+        #card-huigang { border-color: #10b981; background-color: #ecfdf5; } /* 희강왕 */
+        #card-ujing { border-color: #8b5cf6; background-color: #f5f3ff; } /* 신무왕 */
+        #card-uijeong { border-color: #94a3b8; background-color: #f8fafc; } /* 헌안왕 */
+        #card-jomyeong { border-color: #ec4899; background-color: #fce7f3; } /* 조명부인 */
+
+        /* 트리 컨테이너 */
+        .tree-container {
+            width: 100%;
+            overflow-x: auto;
+            padding-bottom: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* SVG 오버레이 */
+        #connection-layer {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 가계도 영역 -->
+    <div class="tree-container">
+        <div class="tree">
+            <!-- SVG 연결선 -->
+            <svg id="connection-layer">
+                <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                        <polygon points="0 0, 10 3.5, 0 7" fill="#ef4444" />
+                    </marker>
+                </defs>
+                <line id="conflict-line" stroke="#ef4444" stroke-width="3" stroke-dasharray="5,5" marker-end="url(#arrowhead)" />
+                <line id="disc-line" stroke="#7c3aed" stroke-width="2" stroke-dasharray="4,2" />
+            </svg>
+
+            <ul>
+                <li>
+                    <div class="card king">
+                        <span>제38대</span>
+                        <div class="name">원성왕</div>
+                    </div>
+                    <!-- 2세대 -->
+                    <ul>
+                        <!-- 1. 혜충태자 라인 (김인겸) -->
+                        <li>
+                            <div class="card father">
+                                <span>혜충태자</span>
+                                <div class="name">김인겸</div>
+                            </div>
+                            <ul>
+                                <!-- 첫째: 소성왕 -->
+                                <li>
+                                    <div class="card king">
+                                        <span>제39대</span>
+                                        <div class="name">소성왕</div>
+                                    </div>
+                                    <ul>
+                                        <li>
+                                            <div class="card king">
+                                                <span>제40대</span>
+                                                <div class="name">애장왕</div>
+                                                <div class="desc">(김청명)</div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="card father">
+                                                <span>동생</span>
+                                                <div class="name">김체명</div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <!-- 둘째: 헌덕왕 -->
+                                <li>
+                                    <div class="card king">
+                                        <span>제41대</span>
+                                        <div class="name">헌덕왕</div>
+                                        <div class="desc">(김언승)</div>
+                                    </div>
+                                </li>
+                                <!-- 셋째: 흥덕왕 -->
+                                <li>
+                                    <div class="card king">
+                                        <span>제42대</span>
+                                        <div class="name">흥덕왕</div>
+                                        <div class="desc">(김수종)</div>
+                                    </div>
+                                </li>
+                                <!-- 넷째: 김충공 -->
+                                <li>
+                                    <div class="card father">
+                                        <div class="name">김충공</div>
+                                    </div>
+                                    <ul>
+                                        <li>
+                                            <div class="card king">
+                                                <span>제44대</span>
+                                                <div class="name">민애왕</div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div id="card-jomyeong" class="card">
+                                                <span>딸</span>
+                                                <div class="name">조명부인</div>
+                                                <div class="desc">김균정의 처</div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- 2. 예영태자 라인 -->
+                        <li>
+                            <div class="card father">
+                                <span>아들</span>
+                                <div class="name">예영태자</div>
+                            </div>
+                            <ul>
+                                <!-- 김균정 -->
+                                <li>
+                                    <div id="card-gyunjeong" class="card">
+                                        <div class="name">김균정</div>
+                                        <div class="desc">패배 / 사망</div>
+                                    </div>
+                                    <ul>
+                                        <li>
+                                            <div id="card-ujing" class="card king">
+                                                <span>제45대</span>
+                                                <div class="name">신무왕</div>
+                                                <div class="desc">(김우징)</div>
+                                            </div>
+                                            <ul>
+                                                <li>
+                                                    <div class="card king">
+                                                        <span>제46대</span>
+                                                        <div class="name">문성왕</div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <div id="card-uijeong" class="card king">
+                                                <span>제47대</span>
+                                                <div class="name">헌안왕</div>
+                                                <div class="desc">(김의정)<br>母: 조명부인</div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <!-- 김헌정 -->
+                                <li>
+                                    <div class="card father">
+                                        <div class="name">김헌정</div>
+                                    </div>
+                                    <ul>
+                                        <li>
+                                            <div id="card-huigang" class="card king">
+                                                <span>제43대</span>
+                                                <div class="name">희강왕</div>
+                                                <div class="desc">승리</div>
+                                            </div>
+                                            <ul>
+                                                <li>
+                                                    <div class="card father">
+                                                        <span>아들</span>
+                                                        <div class="name">김계명</div>
+                                                    </div>
+                                                    <ul>
+                                                        <li>
+                                                            <div class="card king">
+                                                                <span>제48대</span>
+                                                                <div class="name">경문왕</div>
+                                                                <div class="desc">(김응렴)</div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function drawLines() {
+            const tree = document.querySelector('.tree');
+            const svg = document.getElementById('connection-layer');
+            const treeRect = tree.getBoundingClientRect();
+
+            // 1. 왕위 계승 다툼 선 (김균정 -> 희강왕)
+            drawSingleLine('card-gyunjeong', 'card-huigang', 'conflict-line', treeRect);
+
+            // 2. 이복형제 관계 선 (신무왕 <-> 헌안왕)
+            drawSingleLine('card-ujing', 'card-uijeong', 'disc-line', treeRect);
+        }
+
+        function drawSingleLine(startId, endId, lineId, treeRect) {
+            const startEl = document.getElementById(startId);
+            const endEl = document.getElementById(endId);
+            const line = document.getElementById(lineId);
+
+            if (!startEl || !endEl) return;
+
+            const startRect = startEl.getBoundingClientRect();
+            const endRect = endEl.getBoundingClientRect();
+
+            // 트리 컨테이너 내부 좌표계로 변환
+            const x1 = startRect.left + startRect.width / 2 - treeRect.left;
+            const y1 = startRect.top + startRect.height / 2 - treeRect.top;
+            const x2 = endRect.left + endRect.width / 2 - treeRect.left;
+            const y2 = endRect.top + endRect.height / 2 - treeRect.top;
+
+            line.setAttribute('x1', x1);
+            line.setAttribute('y1', y1);
+            line.setAttribute('x2', x2);
+            line.setAttribute('y2', y2);
+        }
+
+        window.addEventListener('load', drawLines);
+        window.addEventListener('resize', drawLines);
+        setTimeout(drawLines, 500);
+        setTimeout(drawLines, 1500); // 폰트 로딩 등 지연 대비
+    </script>
+</body>
+</html>
